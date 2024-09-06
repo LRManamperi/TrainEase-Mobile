@@ -5,6 +5,8 @@ import ElevatedButton from "../components/ElevatedButton";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
+import { BASE_URL } from "@env";  
+
 export default function RegisterScreen({ navigation }) {
   const [username, setUserName] = useState();
   const [email, setEmail] = useState();
@@ -29,7 +31,7 @@ export default function RegisterScreen({ navigation }) {
     // console.log(body);
 
     axios
-      .post("http://192.168.8.101:3000/api/register", body, {
+      .post(`${BASE_URL}/api/user/register`, body, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -54,7 +56,7 @@ export default function RegisterScreen({ navigation }) {
       <CustomInput
         value={username}
         onChange={setUserName}
-        label="Username *"
+        label="Username"
         isRequired={true}
       />
       <CustomInput
@@ -66,14 +68,14 @@ export default function RegisterScreen({ navigation }) {
       <CustomInput
         value={phone}
         onChange={setPhone}
-        label="Phone Number *"
+        label="Phone Number"
         isRequired={true}
       />
       <CustomInput
         value={password}
         onChange={setPassword}
         secureTextEntry={true}
-        label="Password *"
+        label="Password"
         isRequired={true}
       />
 
@@ -82,7 +84,7 @@ export default function RegisterScreen({ navigation }) {
         style={{
           flexDirection: "row",
           justifyContent: "center",
-          marginTop: 7,
+          marginTop: 15,
           gap: 3,
         }}
       >
@@ -110,7 +112,7 @@ const styles = StyleSheet.create({
   },
   LoginText: {
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: "bold",
     marginTop: 6,
     marginBottom: 28,

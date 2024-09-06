@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, Alert, StyleSheet, SafeAreaView
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
+import { BASE_URL } from "@env"; 
 
 export default function Schedules() {
   const [from, setFrom] = useState('');
@@ -27,7 +28,7 @@ export default function Schedules() {
   useEffect(() => {
     async function fetchStations() {
       try {
-        const response = await axios.get('http://192.168.8.101:3000/api/stations');
+        const response = await axios.get(`${BASE_URL}/api/search/stations`);
         if (response.status === 200) {
           const resStations = response.data.map(station => ({
             label: station.name
@@ -58,7 +59,7 @@ export default function Schedules() {
     }
 
     try {
-      const response = await axios.get('http://192.168.8.101:3000/api/schedules', {
+      const response = await axios.get(`${BASE_URL}/api/search/schedules`, {
         params: { fromName: from, toName: to, date: date }
       });
 

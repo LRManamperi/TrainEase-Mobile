@@ -13,9 +13,11 @@ export default function ElevatedButton({ text, handlerFunc }) {
 const styles = StyleSheet.create({
   btn: {
     backgroundColor: "black",
-    paddingVertical: 17,
-    paddingHorizontal: 32,
-    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 140,
+    borderRadius: 10, 
+    marginTop: 10,
+    paddingBottom: 10
   },
   container: {
     flexDirection: "row",
@@ -24,7 +26,6 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
   },
 });

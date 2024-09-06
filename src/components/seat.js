@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 60,
     height: 60,
-    minWidth: 60,
+    minWidth: 50,
     minHeight: 60,
     borderColor: 'black',
     borderWidth: 1,
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   },
   iconContainer: {
     alignItems: 'center',
+    padding: 0.1,
   },
   seatName: {
     marginTop: 5,

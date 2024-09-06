@@ -33,7 +33,7 @@ export default function CustomInput({
         mode="outlined"
         secureTextEntry={secureTextEntry}
         outlineColor={error ? "red" : "#C9D7DD"}
-        activeOutlineColor={error ? "red" : "#4CB9E7"}
+        activeOutlineColor={error ? "red" : "lightblue"}
       />
       {error && (
         <HelperText type="error" visible={error}>
@@ -47,9 +47,9 @@ export default function CustomInput({
 const styles = StyleSheet.create({
   customInput: {
     backgroundColor: "#f4f6f6",
-    marginHorizontal: 26,
-    borderRadius: 5,
+    marginHorizontal: 10,
+    borderRadius: 15,
     marginBottom: 20,
-    height: 56,
+    height: 50,
   },
 });

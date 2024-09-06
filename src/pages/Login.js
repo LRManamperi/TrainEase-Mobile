@@ -1,8 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
+import { TextInput, Button } from "react-native-paper";
 import CustomInput from "../components/CustomInput";
 import ElevatedButton from "../components/ElevatedButton";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import axios from "axios";
+import { BASE_URL } from "@env"; 
 
 export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
@@ -18,68 +21,45 @@ export default function Login({ navigation }) {
 
   const loginUser = () => {
     if (!handleValidation()) return;
-    const body = {
-      username,
-      password,
-    };
-    console.log(body);
+    const body = { username, password };
+    
     axios
-      .post("http://192.168.8.101:3000/api/login", body, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true, // Include this to ensure cookies are sent and received
+      .post(`${BASE_URL}/api/user/login`, body, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
       })
-      .then((response) => {
+      .then(() => {
         console.log("Login Successful");
-        navigation.navigate("Home"); // Navigates to the Home screen upon successful login
+        navigation.navigate("Home");
       })
       .catch((error) => {
-        console.log("Login failed:", error.message);
-        if (error.response) {
-          console.log("Error Response Data:", error.response.data);
-          console.log("Error Response Status:", error.response.status);
-        } else if (error.request) {
-          console.log("Error Request:", error.request);
-        } else {
-          console.log("Error Message:", error.message);
-        }
-        Alert.alert(
-          "Login Failed",
-          "Please check your credentials and try again."
-        );
+        console.error("Login failed:", error);
+        Alert.alert("Login Failed", "Please check your credentials and try again.");
       });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.LoginText}>Login</Text>
+      <Text style={styles.title}>Login</Text>
       <CustomInput
-        placeholder="Username *"
+        placeholder="Username"
         value={username}
         onChange={setUsername}
         isRequired={true}
-        label="Username *"
+        label="Username"
       />
       <CustomInput
-        label="Password *"
+        label="Password"
         value={password}
-        onChange={setPassword} // Ensure this updates the password state
+        onChange={setPassword}
         isRequired={true}
         secureTextEntry={true}
       />
       <ElevatedButton text="Login" handlerFunc={loginUser} />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginTop: 7,
-          gap: 3,
-        }}
-      >
+      <View style={styles.footer}>
         <Text style={styles.text}>Don't have an account?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-          <Text>Register here</Text>
+          <Text style={styles.link}>Register here</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -91,16 +71,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     paddingTop: 80,
+    paddingHorizontal: 20,
   },
-  LoginText: {
+  title: {
     textAlign: "center",
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: "bold",
-    marginTop: 6,
-    marginBottom: 28,
+    marginBottom: 40,
+    color: "black",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 15
   },
   text: {
     color: "grey",
-    textAlign: "center",
+  },
+  link: {
+    color: "black",
+    marginLeft: 5,
   },
 });

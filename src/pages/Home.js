@@ -6,18 +6,19 @@ import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
 import backgroundImage from "../assets/train.png";
 import { formatDate } from "../utils/Utils";
+import { BASE_URL } from "@env";  
 
 export default function HomeScreen({ navigation }) {
-  const [selectedValue1, setSelectedValue1] = useState("option1");
-  const [selectedValue2, setSelectedValue2] = useState("option1");
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedValue1, setSelectedValue1] = useState("");
+  const [selectedValue2, setSelectedValue2] = useState("");
+  const [selectedDate, setSelectedDate] = useState(new Date());  // Default to current date
   const [show, setShow] = useState(false);
   const [stations, setStations] = useState([]);
 
   useEffect(() => {
     async function fetchStations() {
       try {
-        const response = await axios.get("http://192.168.8.101:3000/api/stations");
+        const response = await axios.get(`${BASE_URL}/api/search/stations`);
         setStations(response.data.map(station => ({ label: station.name })));
       } catch (error) {
         console.error("Error fetching stations:", error);  // Log the full error
@@ -25,9 +26,8 @@ export default function HomeScreen({ navigation }) {
       }
     }
     fetchStations();
-  }, []);
+  }, []);  // Add an empty dependency array to fetch stations only once
   
-
   const onChange = (event, date) => {
     setShow(false);
     setSelectedDate(date || selectedDate);
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 16,
     paddingVertical: 12,
+    paddingLeft: 10
   },
   searchButton: {
     borderRadius: 10,

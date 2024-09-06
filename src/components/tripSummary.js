@@ -4,6 +4,7 @@ import { Card, Divider, Title, Paragraph, IconButton } from 'react-native-paper'
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import getTimeDiffInMins from '../utils/timeDuration'; // Adjust the import path as needed
+import { BASE_URL } from "@env";
 
 const TripSummary = ({
   selectedClass,
@@ -27,8 +28,8 @@ const TripSummary = ({
           return;
         }
 
-        const fromStopResponse = await axios.get(`/api/stationName/${fromStop.stationRef}`);
-        const toStopResponse = await axios.get(`/api/stationName/${toStop.stationRef}`);
+        const fromStopResponse = await axios.get(`${BASE_URL}/api/stationName/${fromStop.stationRef}`);
+        const toStopResponse = await axios.get(`${BASE_URL}/api/stationName/${toStop.stationRef}`);
         
         setFromStopName(fromStopResponse.data.name);
         setToStopName(toStopResponse.data.name);

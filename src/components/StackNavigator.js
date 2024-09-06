@@ -37,7 +37,7 @@ function HomeStack() {
         headerTintColor: "white",
       }}
     >
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="TrainEase" component={Home} />
       <Stack.Screen name="Schedules" component={Schedules} />
       <Stack.Screen name="TrainDetails" component={TrainDetails} />
       <Stack.Screen name="SeatSelection" component={SeatSelection} />
