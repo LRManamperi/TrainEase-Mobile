@@ -28,11 +28,11 @@ const TripSummary = ({
           return;
         }
 
-        const fromStopResponse = await axios.get(`${BASE_URL}/api/stationName/${fromStop.stationRef}`);
-        const toStopResponse = await axios.get(`${BASE_URL}/api/stationName/${toStop.stationRef}`);
+        // const fromStopResponse = await axios.get(`${BASE_URL}/api/stationName/${fromStop.stationRef}`);
+        // const toStopResponse = await axios.get(`${BASE_URL}/api/stationName/${toStop.stationRef}`);
         
-        setFromStopName(fromStopResponse.data.name);
-        setToStopName(toStopResponse.data.name);
+        // setFromStopName(fromStopResponse.data.name);
+        // setToStopName(toStopResponse.data.name);
       } catch (error) {
         console.error('Failed to fetch stops:', error);
       }
