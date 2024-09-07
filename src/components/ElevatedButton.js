@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   btnText: {
+    display: "flex",
     color: "white",
     fontSize: 18,
   },

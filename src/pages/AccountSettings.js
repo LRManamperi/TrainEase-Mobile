@@ -1,18 +1,9 @@
-import React, { useState } from "react";
-import CustomInput from "../components/CustomInput";
-import ElevatedButton from "../components/ElevatedButton";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, ScrollView } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { Alert } from "react-native";
+import axios from "axios";
+import { BASE_URL } from "@env";
+import CustomInput from "../components/CustomInput"; 
 
 const AccountSettings = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -21,29 +12,50 @@ const AccountSettings = ({ navigation }) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const handleSaveChanges = () => {
-    // to handle save changes logic here
-    console.log({
-      username,
-      email,
-      phoneNumber,
-      oldPassword,
-      newPassword,
-    });
-    Alert.alert(
-      "Success",
-      "Account Details changed Successfully!",
-      [
-        {
-          text: "OK",
-          onPress: () => navigation.navigate("Home"), // Navigate to Home
-        },
-      ],
-      { cancelable: false }
-    );
+  useEffect(() => {
+    // Fetch the existing user profile data
+    async function fetchProfile() {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/user/getProfile`);
+        const { username, email, phone } = response.data;
+        setUsername(username);
+        setEmail(email);
+        setPhoneNumber(phone);
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    }
+    fetchProfile();
+  }, []);
+
+  const handleSaveChanges = async () => {
+    try {
+      const response = await axios.post(`${BASE_URL}/api/user/editProfile`, {
+        username,
+        email,
+        phoneNumber,
+        oldPassword,
+        newPassword,
+      });
+      Alert.alert(
+        "Success",
+        "Account Details changed successfully!",
+        [
+          {
+            text: "OK",
+            onPress: () => navigation.navigate("Home"),
+          },
+        ],
+        { cancelable: false }
+      );
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      Alert.alert("Error", "Failed to update profile. Please try again.");
+    }
   };
+
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -53,46 +65,58 @@ const AccountSettings = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Account Settings</Text>
       </View>
-      <View>
-        <Text style={styles.LoginText}>Account Details</Text>
-        <CustomInput
-          label="Username *"
-          onChange={setUsername}
-          isRequired={true}
+      <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
         />
-        <CustomInput
-          label="Email Address *"
-          onChange={setEmail}
-          isRequired={true}
+        <TextInput
+          style={styles.input}
+          placeholder="Email Address"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
         />
-        <CustomInput
-          label="Phone Number *"
-          onChange={setPhoneNumber}
-          isRequired={true}
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          value={phoneNumber}
+          onChangeText={setPhoneNumber}
+          keyboardType="phone-pad"
         />
-        <CustomInput
-          label="Old Password *"
-          onChange={setOldPassword}
-          isRequired={true}
-          secureTextEntry={true}
+        <TextInput
+          style={styles.input}
+          placeholder="Old Password"
+          value={oldPassword}
+          onChangeText={setOldPassword}
+          secureTextEntry
         />
-        <CustomInput
-          label="New Password *"
-          onChange={setNewPassword}
-          isRequired={true}
-          secureTextEntry={true}
+        <TextInput
+          style={styles.input}
+          placeholder="New Password"
+          value={newPassword}
+          onChangeText={setNewPassword}
+          secureTextEntry
         />
-        <ElevatedButton text="Save Changes" handlerFunc={handleSaveChanges} />
+        <TouchableOpacity style={styles.saveButton} onPress={handleSaveChanges}>
+          <Text style={styles.saveButtonText}>Save Changes</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    backgroundColor: '#fff',
+  },
   headerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#1C2938", // Dark background color
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1C2938',
     paddingTop: 45,
     paddingBottom: 17,
     paddingLeft: 15,
@@ -100,21 +124,31 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
   },
-  backImage: {
-    width: 50, // Width of the image
-    height: 50, // Height of the image
-    //resizeMode: "contain", // Ensures the image scales properly
-  },
   headerTitle: {
     fontSize: 28,
-    color: "white", // White text color
+    color: 'white',
   },
-  LoginText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 6,
-    marginBottom: 28,
-    paddingLeft: 25,
+  formContainer: {
+    padding: 16,
+  },
+  input: {
+    height: 40,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 15,
+    paddingHorizontal: 10,
+  },
+  saveButton: {
+    backgroundColor: 'black',
+    paddingVertical: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  saveButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
