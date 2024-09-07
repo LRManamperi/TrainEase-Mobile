@@ -223,14 +223,18 @@ import AccountCreated from "./src/pages/AccountCreated";
 import AccountSettings from "./src/pages/AccountSettings";
 import LoginScreen from "./src/pages/Login";
 import RegisterScreen from "./src/pages/Register";
+import store from "./src/redux/store";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Provider } from "react-redux";
 
 export default function App() {
   return (
+    <Provider store={store}>
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StackNavigator />
     </GestureHandlerRootView>
+  </Provider>
   );
 }
 

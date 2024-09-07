@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 import { BASE_URL } from "@env"; 
+import { useSelector } from "react-redux";  // Import useSelector to get the current user
 
 export default function Schedules() {
   const [from, setFrom] = useState('');
@@ -11,9 +12,10 @@ export default function Schedules() {
   const [date, setDate] = useState('');
   const [schedules, setSchedules] = useState([]);
   const [stations, setStations] = useState([]);
-
+  
   const navigation = useNavigation();
   const route = useRoute();
+  const currentUser = useSelector((state) => state.user.currentUser);  // Access currentUser from Redux store
 
   useEffect(() => {
     if (route.params) {
@@ -75,6 +77,19 @@ export default function Schedules() {
   };
 
   const handleOpen = (fullSchedule) => {
+    if (!currentUser) {  // Check if the user is logged in
+      Alert.alert(
+        'Login Required',
+        'You need to be logged in to view train details. Would you like to login?',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'Login', onPress: () => navigation.navigate('Login') },  // Navigate to the Login screen
+        ]
+      );
+      return;
+    }
+
+    // If logged in, proceed to TrainDetails
     navigation.navigate('TrainDetails', { 
       schedule: fullSchedule.schedule, 
       fromStop: fullSchedule.fromStop, 
@@ -84,8 +99,6 @@ export default function Schedules() {
   };
 
   const renderItem = ({ item }) => (
-    //if not logged alert to login
-    
     <TouchableOpacity style={styles.card} onPress={() => handleOpen(item)}>
       <View style={styles.row}>
         <View style={styles.trainInfo}>

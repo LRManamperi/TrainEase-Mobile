@@ -27,7 +27,7 @@ const Seat = ({ seat, isBooked, isSelected, onSeatSelection }) => {
 const styles = StyleSheet.create({
   button: {
     position: 'absolute',
-    width: 60,
+    width: 55,
     height: 60,
     minWidth: 50,
     minHeight: 60,
@@ -39,8 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   iconContainer: {
-    alignItems: 'center',
-    padding: 0.1,
+    alignItems: 'center'
   },
   seatName: {
     marginTop: 5,

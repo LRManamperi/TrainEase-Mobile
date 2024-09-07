@@ -130,13 +130,14 @@ import axios from 'axios';
 import SeatLayout from '../components/seatLayout';
 import TripSummary from '../components/tripSummary';
 import { BASE_URL } from "@env";
+import { useSelector } from 'react-redux';
 
 const SeatSelection = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [coaches, setCoaches] = useState([]);
   const [bookedSeats, setBookedSeats] = useState([]);
   const [currentCoachIndex, setCurrentCoachIndex] = useState(0);
-  const {currentUserId} = useState('USER_ID');
+  const {currentUser} = useSelector(state => state.user);
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -195,7 +196,7 @@ const SeatSelection = () => {
 
     try {
       const response = await axios.post(`${BASE_URL}/api/booking/holdSeats`, {
-        userId: 'USER_ID', // Replace with actual user ID
+        userId: currentUser._id,
         scheduleId: schedule._id,
         fromStopId: fromStop._id,
         toStopId: toStop._id,

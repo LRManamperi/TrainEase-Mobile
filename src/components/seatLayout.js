@@ -139,10 +139,10 @@ const SeatLayout = ({ seats, bookedSeats, selectedSeats, onSeatSelection }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 10,
     flexDirection: 'row', // Row direction to allow seats to flow horizontally
     flexWrap: 'wrap', // Allows seats to wrap onto the next line when they reach the end of the row
-    justifyContent: 'flex-start', // Align seats to the start
+    justifyContent: 'space-between', // Align seats to the start
   },
 });
 
