@@ -9,7 +9,10 @@ import {
   Alert,
 } from 'react-native';
 import { RadioButton, TextInput, Button } from "react-native-paper";
-import { MaterialIcons } from '@expo/vector-icons'; // Assuming you are using Expo
+import { MaterialIcons } from '@expo/vector-icons'; 
+import axios from 'axios';
+import { BASE_URL } from "@env"; 
+import { useRoute } from '@react-navigation/native';
 
 export default function Checkout() {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('credit-card');
@@ -18,14 +21,29 @@ export default function Checkout() {
   const [expiryDate, setExpiryDate] = useState('');
   const [securityCode, setSecurityCode] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isExpired, setIsExpired] = useState(false);
+  const route = useRoute();
+  const {selectedclass, fromStop, toStop, bookingId, selectedSeatCount, trainName, selectedSeats, schedule, expireTime} = route.params;
 
-  const handleConfirmBooking = () => {
+  const handleConfirmBooking = async () => {
     if (!cardNumber || !cardHolderName || !expiryDate || !securityCode) {
       Alert.alert('Error', 'Please fill in all the card details.');
       return;
     }
-    setIsSuccess(true);
-    Alert.alert('Success', 'Your reservation has been confirmed!');
+    if (isExpired) {
+      Alert.alert('Error', 'Booking has expired.');
+      return;
+    }
+
+    try {
+      const response = await axios.get(`${BASE_URL}/api/booking/confirmBooking/${bookingId}`);
+      console.log("Booking confirmation response:", response.data);
+      setIsSuccess(true);
+      Alert.alert('Success', 'Your reservation has been confirmed!');
+    } catch (error) {
+      console.error("Failed to confirm booking:", error);
+      Alert.alert("Failed to confirm booking, please try again."); // Inform the user about the error
+    }
   };
 
   return (
@@ -45,21 +63,21 @@ export default function Checkout() {
             value={selectedPaymentMethod}
           >
             <View style={styles.radioItem}>
-              <RadioButton value="credit-card" />
+              <RadioButton value="credit-card" color = "lightblue"/>
               <Text style={styles.radioLabel}>Credit card</Text>
             </View>
             <View style={styles.radioItem}>
-              <RadioButton value="debit-card" />
+              <RadioButton value="debit-card" color = "lightblue"/>
               <Text style={styles.radioLabel}>Debit card</Text>
             </View>
           </RadioButton.Group>
         </View>
 
-        {/* <View style={styles.cardIconsContainer}>
-          <Image source={require('../assets/visa-svgrepo-com.svg')} style={styles.cardIcon} />
-          <Image source={require('../assets/mastercard-full-svgrepo-com.svg')} style={styles.cardIcon} />
-          <Image source={require('../assets/american-express-svgrepo-com.svg')} style={styles.cardIcon} />
-        </View> */}
+        <View style={styles.cardIconsContainer}>
+          <Image source={require('../assets/icons8-visa-48.png')} style={styles.cardIcon} />
+          <Image source={require('../assets/icons8-mastercard-48.png')} style={styles.cardIcon} />
+          <Image source={require('../assets/icons8-american-express-squared-48.png')} style={styles.cardIcon} />
+        </View>
 
         <Text style={styles.sectionTitle}>Card Details</Text>
         <TextInput
@@ -69,6 +87,7 @@ export default function Checkout() {
           onChangeText={setCardNumber}
           keyboardType="numeric"
           style={styles.input}
+          theme={{ colors: { primary: 'lightblue' } }}
         />
         <TextInput
           mode="outlined"
@@ -76,6 +95,7 @@ export default function Checkout() {
           value={cardHolderName}
           onChangeText={setCardHolderName}
           style={styles.input}
+          theme={{ colors: { primary: 'lightblue' } }}
         />
         <View style={styles.expiryCVCContainer}>
           <TextInput
@@ -85,6 +105,7 @@ export default function Checkout() {
             onChangeText={setExpiryDate}
             keyboardType="numeric"
             style={[styles.input, styles.expiryInput]}
+            theme={{ colors: { primary: 'lightblue' } }}
           />
           <TextInput
             mode="outlined"
@@ -93,6 +114,7 @@ export default function Checkout() {
             onChangeText={setSecurityCode}
             keyboardType="numeric"
             style={[styles.input, styles.cvcInput]}
+            theme={{ colors: { primary: 'lightblue' } }}
           />
         </View>
       </View>
@@ -103,7 +125,7 @@ export default function Checkout() {
         disabled={isSuccess}
         style={styles.confirmButton}
       >
-        Confirm Reservation
+        <Text style={styles.checkoutButtonText}>Confirm Reservation</Text>
       </Button>
     </ScrollView>
   );
@@ -153,6 +175,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginBottom: 32,
+    marginLeft: 180,
   },
   cardIcon: {
     width: 50,
@@ -184,5 +207,10 @@ const styles = StyleSheet.create({
     marginTop: 24,
     borderRadius:10,
     backgroundColor: '#CD3F3E',
+  },
+  checkoutButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
