@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { navigate } from '@react-navigation/native';
+import Login from './Login';
+
 
 const ContactUs = ({ navigation }) => {
   return (
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     backgroundColor: '#1C2938',
-    paddingVertical: 20,
+    paddingVertical: 25,
     paddingHorizontal: 10,
     justifyContent: 'space-between',
     alignItems: 'flex-start',
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   separator: {
-    height: 50,
+    height: 20,
     backgroundColor: '#eee'
   },
   quickGuidesHeader: {

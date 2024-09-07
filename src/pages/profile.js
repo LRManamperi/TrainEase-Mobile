@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import myBookings from '../pages/myBookings';
+import myBookings from './myBookings';
 import {navigate} from '@react-navigation/native';
 
-//Navigate to MyBookings
+
 
 const Profile = ({ navigation }) => {
   return (

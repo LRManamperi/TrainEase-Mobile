@@ -1,138 +1,117 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import moment from 'moment';
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, Alert, ScrollView, StyleSheet } from "react-native";
+import axios from "axios";
+import moment from "moment";
+import { BASE_URL } from "@env"; 
 
-const MyBookings = ({ navigation }) => {
+export default function BookingHistory({ navigation }) {
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchBookingHistory() {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/user/history`);
+        setBookings(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    }
+    fetchBookingHistory();
+  }, []);
+
+  const handleCancelBooking = async (bookingId) => {
+    try {
+      console.log(`Attempting to cancel booking with ID: ${bookingId}`);
+      const response = await axios.delete(`${BASE_URL}/api/user/cancelBooking/${bookingId}`);
+      console.log("Cancel Booking Response:", response);
+      if (response.status === 200) {
+        Alert.alert("Success", "Booking cancelled successfully");
+        setBookings(bookings.filter((booking) => booking._id !== bookingId));
+      }
+    } catch (error) {
+      console.error("Cancel Booking Error:", error.response || error);
+      Alert.alert("Error", "Failed to cancel booking. Please try again.");
+    }
+  };
+
   const currentDate = moment();
 
-  // Sort bookings in descending order based on the date
-  const sortedBookings = bookings.sort((a, b) => moment(b.dateTime, 'M/D/YYYY h.mmA') - moment(a.dateTime, 'M/D/YYYY h.mmA'));
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error loading booking history.</Text>;
+  if (bookings.length === 0) return <Text>No booking history available.</Text>;
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Icon name="arrow-back" size={24} color="white" />
-        </TouchableOpacity>
-        <Text style={styles.header}>Booking History</Text>
-      </View>
-      {sortedBookings.map((booking, index) => {
-        const bookingDate = moment(booking.dateTime, 'M/D/YYYY h.mmA');
-        const isPastBooking = bookingDate.isBefore(currentDate);
+      {bookings.map((booking, index) => {
+        const bookingDate = moment(booking.datetimestamp);
+        const isPastBooking = bookingDate.isBefore(currentDate, 'minute');
+
+        const trainName = booking.scheduleRef.trainRef?.name || 'Unknown Train';
+        const fromStation = booking.from.stationRef?.name || 'Unknown Station';
+        const toStation = booking.to.stationRef?.name || 'Unknown Station';
 
         return (
-          <TouchableOpacity key={index} style={styles.option}>
-            <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>{booking.trainName}</Text>
-              <Text style={styles.optionSubText}>{booking.dateTime}</Text>
-              <Text style={styles.optionSubText}>Passengers: {booking.passengers}</Text>
-              <Text style={styles.optionSubText}>Total Amount: {booking.amount}</Text>
-            </View>
-            {!isPastBooking && (
-              <TouchableOpacity style={styles.cancelButton} onPress={() => navigation.navigate('cancel')}>
+          <View key={index} style={styles.bookingCard}>
+            <Text style={styles.bookingText}>Train: {trainName}</Text>
+            <Text style={styles.bookingText}>From: {fromStation}</Text>
+            <Text style={styles.bookingText}>To: {toStation}</Text>
+            <Text style={styles.bookingText}>Date: {bookingDate.format("MMMM Do YYYY, h:mm A")}</Text>
+            <Text style={styles.bookingText}>Passengers: {booking.seats.length}</Text>
+            <Text style={styles.bookingText}>Total Amount: {booking.totalAmount} LKR</Text>
+
+            {isPastBooking ? (
+              <Text style={styles.cancelNotAllowedText}>Cancellation not allowed for past bookings</Text>
+            ) : (
+              <TouchableOpacity
+                style={styles.cancelButton}
+                onPress={() => handleCancelBooking(booking._id)}
+              >
                 <Text style={styles.cancelButtonText}>Cancel</Text>
               </TouchableOpacity>
             )}
-          </TouchableOpacity>
+          </View>
         );
       })}
     </ScrollView>
   );
-};
-
-const bookings = [
-  {
-    trainName: 'Galu Kumari',
-    dateTime: '7/16/2024 8.00A.M.',
-    passengers: 4,
-    amount: 'Rs. 2000.00',
-  },
-  {
-    trainName: 'Ruhunu Kumari',
-    dateTime: '7/18/2024 9.00A.M.',
-    passengers: 2,
-    amount: 'Rs. 1000.00',
-  },
-  {
-    trainName: 'Udarata Menike',
-    dateTime: '7/20/2024 6.00A.M.',
-    passengers: 1,
-    amount: 'Rs. 500.00',
-  },
-  {
-    trainName: 'Podi Menike',
-    dateTime: '7/22/2024 7.00A.M.',
-    passengers: 3,
-    amount: 'Rs. 1500.00',
-  },
-  {
-    trainName: 'Yal Devi',
-    dateTime: '7/24/2024 5.00A.M.',
-    passengers: 5,
-    amount: 'Rs. 2500.00',
-  },
-];
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
-    width: '100%',
+    backgroundColor: "#f8f8f8",
   },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1C2938',
-    paddingVertical: 20,
-    paddingHorizontal: 10,
+  bookingCard: {
+    backgroundColor: "#fff",
+    padding: 9,
+    marginBottom: 1,
+    elevation: 3,
   },
-  header: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#fff',
-    marginLeft: 10,
-  },
-  backButton: {
-    padding: 5,
-    borderRadius: 50,
-    backgroundColor: '#162233',
-  },
-  option: {
-    flexDirection: 'row',
-    padding: 5,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    marginVertical: 1,
-    borderRadius: 10,
-    marginHorizontal: 10,
-  },
-  optionTextContainer: {
-    flex: 1,
-  },
-  optionText: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#333',
-  },
-  optionSubText: {
-    fontSize: 14,
-    color: '#666',
+  bookingText: {
+    fontSize: 16,
+    marginBottom: 5,
   },
   cancelButton: {
-    backgroundColor: '#D9534F',
-    paddingVertical: 5,
-    paddingHorizontal: 15,
+    marginTop: 10,
+    backgroundColor: "#D9534F",
+    padding: 10,
     borderRadius: 5,
-    marginLeft: 10,
+    marginLeft: "auto",
   },
   cancelButtonText: {
-    color: '#fff',
-    fontSize: 14,
-    fontWeight: 'bold',
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
   },
+  cancelNotAllowedText: {
+    marginTop: 10,
+    color: '#D9534F',
+    fontSize: 16,
+    textAlign: "center",
+  }
 });
-
-export default MyBookings;
