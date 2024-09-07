@@ -1,17 +1,25 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomInput from "../components/CustomInput";
 import ElevatedButton from "../components/ElevatedButton";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
 import { BASE_URL } from "@env";  
+import { useDispatch, useSelector } from "react-redux";
+import { registerStart, registerSuccess, registerFailure, clearError } from "../redux/userSlice";
 
 export default function RegisterScreen({ navigation }) {
   const [username, setUserName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
   const [password, setPassword] = useState();
+  const dispatch = useDispatch();
+  const { error, loading, currentUser } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
 
   const handleValidation = () => {
     if (!username || !email || !phone || !password) {
@@ -22,14 +30,16 @@ export default function RegisterScreen({ navigation }) {
   };
   const registerUser = () => {
     if (!handleValidation()) return;
+  
     const body = {
       username,
       email,
       phone,
       password,
     };
-    // console.log(body);
-
+  
+    dispatch(registerStart());
+  
     axios
       .post(`${BASE_URL}/api/user/register`, body, {
         headers: {
@@ -37,14 +47,18 @@ export default function RegisterScreen({ navigation }) {
         },
       })
       .then((response) => {
+        dispatch(registerSuccess(response.data));
         console.log("Registration Successful");
         navigation.navigate("AccountCreated");
       })
       .catch((err) => {
-        console.log(err);
-        Alert.alert("Registration Failed", "Please try again.");
+        console.error("Registration Error:", err); // Log the entire error for debugging
+        const errorMessage = err.response?.data?.message || "Register failed"; // Safely access error message
+        dispatch(registerFailure(errorMessage));
+        Alert.alert("Registration Failed", errorMessage);
       });
   };
+  
 
   return (
     <KeyboardAwareScrollView

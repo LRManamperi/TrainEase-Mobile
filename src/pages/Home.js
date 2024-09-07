@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   picker: {
     backgroundColor: "white",
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 15,
+    marginRight: 20,
   },
   dateText: {
     fontSize: 16,
