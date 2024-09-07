@@ -138,6 +138,9 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
+    fontSize: 22,
+    marginTop: 20,
+    fontWeight: 'bold'
   },
   divider: {
     marginVertical: 16,

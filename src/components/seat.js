@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     transition: 'background-color 0.3s',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   iconContainer: {
     alignItems: 'center',

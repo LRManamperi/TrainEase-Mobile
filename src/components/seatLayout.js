@@ -53,61 +53,97 @@
 // export default SeatLayout;
 
 
+// import React from 'react';
+// import { View, StyleSheet, Dimensions } from 'react-native';
+// import Seat from './seat';
+
+// // Get device dimensions
+// const { width: screenWidth } = Dimensions.get('window');
+
+// const SeatLayout = ({ seats, bookedSeats, selectedSeats, onSeatSelection }) => {
+//   const leftColumnSeats = seats.filter((_, index) => index % 4 < 2); // First two seats of each row
+//   const rightColumnSeats = seats.filter((_, index) => index % 4 >= 2); // Last two seats of each row
+
+//   return (
+//     <View style={styles.container}>
+//       {/* Left Column */}
+//       <View style={styles.leftcolumn}>
+//         {leftColumnSeats.map((seat) => (
+//           <Seat
+//             key={seat._id}
+//             seat={seat}
+//             onSeatSelection={onSeatSelection}
+//             isBooked={bookedSeats.includes(seat._id)}
+//             isSelected={selectedSeats.includes(seat._id)}
+//           />
+//         ))}
+//       </View>
+
+//       {/* Right Column */}
+//       <View style={styles.rightcolumn}>
+//         {rightColumnSeats.map((seat) => (
+//           <Seat
+//             key={seat._id}
+//             seat={seat}
+//             onSeatSelection={onSeatSelection}
+//             isBooked={bookedSeats.includes(seat._id)}
+//             isSelected={selectedSeats.includes(seat._id)}
+//           />
+//         ))}
+//       </View>
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     padding:10
+//   },
+//   column: {
+//     flex: 1, // Each column takes 50% of the container width
+//     flexDirection: 'column'
+//   },
+//   rightcolumn: {
+//     flex: 1,
+//     flexDirection: 'column',
+//     marginLeft: -70, 
+//   },
+//   leftcolumn: {
+//     flex: 1,
+//     flexDirection: 'column',
+//     marginRight: 10,
+//   }
+// });
+
+// export default SeatLayout;
+
 import React from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Seat from './seat';
 
-// Get device dimensions
-const { width: screenWidth } = Dimensions.get('window');
-
 const SeatLayout = ({ seats, bookedSeats, selectedSeats, onSeatSelection }) => {
-  const leftColumnSeats = seats.filter((_, index) => index % 4 < 2); // First two seats of each row
-  const rightColumnSeats = seats.filter((_, index) => index % 4 >= 2); // Last two seats of each row
-
   return (
     <View style={styles.container}>
-      {/* Left Column */}
-      <View style={styles.column}>
-        {leftColumnSeats.map((seat) => (
-          <Seat
-            key={seat._id}
-            seat={seat}
-            onSeatSelection={onSeatSelection}
-            isBooked={bookedSeats.includes(seat._id)}
-            isSelected={selectedSeats.includes(seat._id)}
-          />
-        ))}
-      </View>
-
-      {/* Right Column */}
-      <View style={styles.rightcolumn}>
-        {rightColumnSeats.map((seat) => (
-          <Seat
-            key={seat._id}
-            seat={seat}
-            onSeatSelection={onSeatSelection}
-            isBooked={bookedSeats.includes(seat._id)}
-            isSelected={selectedSeats.includes(seat._id)}
-          />
-        ))}
-      </View>
+      {seats.map((seat) => (
+        <Seat
+          key={seat._id}
+          seat={seat}
+          onSeatSelection={onSeatSelection}
+          isBooked={bookedSeats.includes(seat._id)}
+          isSelected={selectedSeats.includes(seat._id)}
+        />
+      ))}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding:10
+    padding: 20,
+    flexDirection: 'row', // Row direction to allow seats to flow horizontally
+    flexWrap: 'wrap', // Allows seats to wrap onto the next line when they reach the end of the row
+    justifyContent: 'flex-start', // Align seats to the start
   },
-  column: {
-    flex: 1, // Each column takes 50% of the container width
-    flexDirection: 'column'
-  },
-  rightcolumn: {
-    flex: 1,
-    flexDirection: 'column',
-    marginLeft: -40, 
-  }
 });
 
 export default SeatLayout;

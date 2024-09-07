@@ -124,25 +124,27 @@
 // export default SeatSelection;
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Alert, Dimensions, Animated } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import SeatLayout from '../components/seatLayout';
 import TripSummary from '../components/tripSummary';
 import { BASE_URL } from "@env";
-import { useSelector } from 'react-redux';
 
 const SeatSelection = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [coaches, setCoaches] = useState([]);
   const [bookedSeats, setBookedSeats] = useState([]);
-
+  const [currentCoachIndex, setCurrentCoachIndex] = useState(0);
+  const {currentUserId} = useState('USER_ID');
 
   const navigation = useNavigation();
   const route = useRoute();
 
-  // Extract trip details from the route params
   const { selectedClass, fromStop, toStop, date, schedule } = route.params;
+
+  const screenWidth = Dimensions.get('window').width - 32; // Full screen width minus padding
+  const lineWidth = new Animated.Value(0);
 
   useEffect(() => {
     const fetchSeatData = async () => {
@@ -167,6 +169,15 @@ const SeatSelection = () => {
 
     fetchSeatData();
   }, [date, fromStop, toStop, schedule, selectedClass]);
+
+  useEffect(() => {
+    // Animate the line width based on the current coach index
+    Animated.timing(lineWidth, {
+      toValue: (currentCoachIndex + 1) * (screenWidth / coaches.length),
+      duration: 250,
+      useNativeDriver: false,
+    }).start();
+  }, [currentCoachIndex, screenWidth, coaches.length]);
 
   const handleSeatSelection = (seatId) => {
     if (selectedSeats.includes(seatId)) {
@@ -211,27 +222,49 @@ const SeatSelection = () => {
     }
   };
 
+  const handleScroll = (event) => {
+    const scrollPosition = event.nativeEvent.contentOffset.x;
+    const newIndex = Math.round(scrollPosition / screenWidth);
+    setCurrentCoachIndex(newIndex);
+  };
+
   if (!coaches.length) {
     return <Text style={styles.loadingText}>Loading...</Text>;
   }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-     
-      <View style={styles.coachContainer}>
+      <Text style={styles.title}>{selectedClass.name} </Text>
+
+      {/* Scrollable coach layout */}
+      <ScrollView 
+        horizontal 
+        pagingEnabled 
+        showsHorizontalScrollIndicator={false} 
+        scrollEventThrottle={16}
+        onScroll={handleScroll}  // Track the scroll event
+        contentContainerStyle={styles.coachContainer}
+      >
         {coaches.map((coach) => (
-          <View key={coach._id} style={styles.coach}>
+          <View key={coach._id} style={styles.coachBox}>
             <Text style={styles.coachNumber}>Coach No: {coach.coachNumber}</Text>
             <SeatLayout
               seats={coach.seats}
               bookedSeats={bookedSeats}
               selectedSeats={selectedSeats}
               onSeatSelection={handleSeatSelection}
+              seatClass={selectedClass}
             />
           </View>
         ))}
+      </ScrollView>
+
+      {/* Line Indicator */}
+      <View style={styles.lineContainer}>
+        <Animated.View style={[styles.activeLine, { width: lineWidth }]} />
       </View>
 
+      {/* Trip Summary after the coach section */}
       <View style={styles.summaryContainer}>
         <TripSummary
           selectedClass={selectedClass}
@@ -240,7 +273,7 @@ const SeatSelection = () => {
           date={date}
           selectedSeatCount={selectedSeats.length}
           trainName={schedule.trainRef.name}
-          holdTime={new Date(Date.now() + 5 * 60 * 1000).toISOString()} // Hold time for 15 minutes
+          holdTime={new Date(Date.now() + 5 * 60 * 1000).toISOString()} // Hold time for 5 minutes
         />
 
         <TouchableOpacity style={styles.checkoutButton} onPress={goToCheckout}>
@@ -258,14 +291,21 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
     textAlign: 'center',
-    marginBottom: 20,
   },
   coachContainer: {
-    marginBottom: 420,
+    flexDirection: 'row',
   },
-  coach: {
-    marginBottom: 20,
+  coachBox: {
+    width: 440, // Full screen width minus padding
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    marginHorizontal: 8,
+    height: 525,
   },
   coachNumber: {
     fontSize: 18,
@@ -295,6 +335,18 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     marginTop: 20,
+  },
+  lineContainer: {
+    height: 10,
+    backgroundColor: '#ccc',
+    marginVertical: 10,
+    marginLeft: 16,
+    borderRadius: 5,
+  },
+  activeLine: {
+    height: 10,
+    backgroundColor: '#1976D2',
+    borderRadius: 5,
   },
 });
 

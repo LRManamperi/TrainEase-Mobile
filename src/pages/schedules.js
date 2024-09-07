@@ -84,6 +84,8 @@ export default function Schedules() {
   };
 
   const renderItem = ({ item }) => (
+    //if not logged alert to login
+    
     <TouchableOpacity style={styles.card} onPress={() => handleOpen(item)}>
       <View style={styles.row}>
         <View style={styles.trainInfo}>
