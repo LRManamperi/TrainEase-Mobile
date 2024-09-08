@@ -8,7 +8,11 @@ const initialState = {
 
 const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: {
+    currentUser: null,
+    loading: false,
+    error: null,
+  },
   reducers: {
     registerStart: (state) => {
       state.error = null;

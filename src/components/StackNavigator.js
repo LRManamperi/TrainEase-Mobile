@@ -162,12 +162,12 @@ function ContactUsStackScreen() {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ headerShown: false }}
       />
       
     </Stack.Navigator>
   );
 }
+
 
 // Main App Navigation Container
 export default function App() {
