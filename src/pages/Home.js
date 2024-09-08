@@ -11,9 +11,11 @@ import { BASE_URL } from "@env";
 export default function HomeScreen({ navigation }) {
   const [selectedValue1, setSelectedValue1] = useState("");
   const [selectedValue2, setSelectedValue2] = useState("");
-  const [selectedDate, setSelectedDate] = useState(new Date());  // Default to current date
+  const [selectedDate, setSelectedDate] = useState("");  
   const [show, setShow] = useState(false);
   const [stations, setStations] = useState([]);
+
+  
 
   useEffect(() => {
     async function fetchStations() {

@@ -39,6 +39,7 @@ function HomeStack() {
     >
       <Stack.Screen name="TrainEase" component={Home} />
       <Stack.Screen name="Schedules" component={Schedules} />
+      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="TrainDetails" component={TrainDetails} />
       <Stack.Screen name="SeatSelection" component={SeatSelection} />
       <Stack.Screen name="Checkout" component={Checkout} />
@@ -156,6 +157,11 @@ function ContactUsStackScreen() {
       <Stack.Screen
         name="AccountSettings"
         component={AccountSettingsScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
         options={{ headerShown: false }}
       />
       

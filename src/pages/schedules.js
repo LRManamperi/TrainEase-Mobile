@@ -4,7 +4,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 import { BASE_URL } from "@env"; 
-import { useSelector } from "react-redux";  // Import useSelector to get the current user
+import { useSelector } from "react-redux";  
+import Login from './Login';
 
 export default function Schedules() {
   const [from, setFrom] = useState('');
@@ -83,7 +84,7 @@ export default function Schedules() {
         'You need to be logged in to view train details. Would you like to login?',
         [
           { text: 'Cancel', style: 'cancel' },
-          { text: 'Login', onPress: () => navigation.navigate('Login') },  // Navigate to the Login screen
+          { text: 'Login', onPress: () => navigation.navigate('Login') },  
         ]
       );
       return;
