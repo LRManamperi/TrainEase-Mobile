@@ -11,6 +11,7 @@ export default function Profile({ navigation }) {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   console.log(currentUser);
+  const userData = currentUser;
 
   const handleLogout = async () => {
     dispatch(logOutStart());
@@ -23,6 +24,7 @@ export default function Profile({ navigation }) {
       // Dispatch logOutSuccess and navigate to the Login screen
       dispatch(logOutSuccess(userData));
       navigation.replace("Profile");
+      console.log("Logout Successful");
     } catch (error) {
       console.error("Logout failed:", error);
       dispatch(logOutFailure(error.response?.data?.message || "Logout failed"));
@@ -54,7 +56,6 @@ export default function Profile({ navigation }) {
               <Text style={styles.subHeader}>Log in to start your booking</Text>
               <Icon name="chevron-right" size={16} color="#fff" />
             </TouchableOpacity>
-            //some animation to appear when not logged in
           </>
         )}
       </View>
