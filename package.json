@@ -23,6 +23,7 @@
     "moment": "^2.30.1",
     "react": "18.2.0",
     "react-native": "0.74.3",
+    "react-native-animatable": "^1.4.0",
     "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "^2.17.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
