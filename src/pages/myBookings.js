@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Alert, ScrollView, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, Alert, ScrollView, StyleSheet, Image } from "react-native";
 import axios from "axios";
 import moment from "moment";
+import { useSelector } from 'react-redux';
 import { BASE_URL } from "@env"; 
+import YourTripsWillAppearHere from "../assets/trips.png"; 
 
 export default function BookingHistory({ navigation }) {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
-    async function fetchBookingHistory() {
-      try {
-        const response = await axios.get(`${BASE_URL}/api/user/history`);
-        setBookings(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
+    if (currentUser) {
+      async function fetchBookingHistory() {
+        try {
+          const response = await axios.get(`${BASE_URL}/api/user/history`);
+          setBookings(response.data);
+          setLoading(false);
+        } catch (error) {
+          setError(error);
+          setLoading(false);
+        }
       }
+      fetchBookingHistory();
+    } else {
+      setLoading(false); // Stop loading if the user is not logged in
     }
-    fetchBookingHistory();
-  }, []);
+  }, [currentUser]);
 
   const handleCancelBooking = async (bookingId) => {
     try {
-      console.log(`Attempting to cancel booking with ID: ${bookingId}`);
       const response = await axios.delete(`${BASE_URL}/api/user/cancelBooking/${bookingId}`);
-      console.log("Cancel Booking Response:", response);
       if (response.status === 200) {
         Alert.alert("Success", "Booking cancelled successfully");
         setBookings(bookings.filter((booking) => booking._id !== bookingId));
@@ -42,12 +47,29 @@ export default function BookingHistory({ navigation }) {
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error loading booking history.</Text>;
-  if (bookings.length === 0) return <Text>No booking history available.</Text>;
+
+  if (!currentUser) {
+    return (
+      <View style={styles.noBookingsContainer}>
+        <Image source={YourTripsWillAppearHere} style={styles.noBookingsImage} />
+        <Text style={styles.noBookingsText}>Please log in to see your booking history.</Text>
+      </View>
+    );
+  }
+
+  if (bookings.length === 0) {
+    return (
+      <View style={styles.noBookingsContainer}>
+        <Image source={YourTripsWillAppearHere} style={styles.noBookingsImage} />
+        <Text style={styles.noBookingsText}>Your trips will appear here once booked!</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
       {bookings.map((booking, index) => {
-        const bookingDate = moment(booking.datetimestamp);
+        const bookingDate = moment(booking.date);
         const isPastBooking = bookingDate.isBefore(currentDate, 'minute');
 
         const trainName = booking.scheduleRef.trainRef?.name || 'Unknown Train';
@@ -56,7 +78,7 @@ export default function BookingHistory({ navigation }) {
 
         return (
           <View key={index} style={styles.bookingCard}>
-            <Text style={styles.bookingText}>Train: {trainName}</Text>
+            <Text style={styles.bookingTextHeader}>{trainName}</Text>
             <Text style={styles.bookingText}>From: {fromStation}</Text>
             <Text style={styles.bookingText}>To: {toStation}</Text>
             <Text style={styles.bookingText}>Date: {bookingDate.format("MMMM Do YYYY, h:mm A")}</Text>
@@ -85,6 +107,23 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f8f8f8",
   },
+  noBookingsContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  
+  },
+  noBookingsImage: {
+    width: 400,
+    height: 500,
+    marginBottom: 20,
+  },
+  noBookingsText: {
+    fontSize: 18,
+    color: "#666",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
   bookingCard: {
     backgroundColor: "#fff",
     padding: 9,
@@ -92,8 +131,13 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   bookingText: {
-    fontSize: 16,
+    fontSize: 14,
     marginBottom: 5,
+  },
+  bookingTextHeader: {
+    fontSize: 20,
+    marginBottom: 5,
+    fontWeight: "bold",
   },
   cancelButton: {
     marginTop: 10,
@@ -111,7 +155,8 @@ const styles = StyleSheet.create({
   cancelNotAllowedText: {
     marginTop: 10,
     color: '#D9534F',
-    fontSize: 16,
-    textAlign: "center",
-  }
+    fontSize: 12,
+    textAlign: "right",
+    fontWeight: "bold",
+  },
 });
