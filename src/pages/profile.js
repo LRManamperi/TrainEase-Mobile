@@ -6,8 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logOutStart, logOutSuccess, logOutFailure } from '../redux/userSlice';
 import axios from 'axios';
 import { BASE_URL } from '@env';
+import { useTheme } from '../ThemeContext/ThemeProvider';
 
 export default function Profile({ navigation }) {
+  const { isDarkMode } = useTheme();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   console.log(currentUser);
@@ -34,7 +36,7 @@ export default function Profile({ navigation }) {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, isDarkMode && styles.darkContainer]}>
       <View style={styles.headerContainer}>
         {currentUser ? (
           <>
@@ -65,44 +67,44 @@ export default function Profile({ navigation }) {
       {currentUser && (
         <>
           <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('MyBookings')}>
-            <Icon name="book" size={24} style={styles.icon} />
+            <Icon name="book" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
             <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>Booking History</Text>
+              <Text style={[styles.optionText, isDarkMode && styles.darkText]}>Booking History</Text>
               <Text style={styles.optionSubText}>View your travel bookings</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Transactions')}>
-            <Icon name="exchange" size={24} style={styles.icon} />
+            <Icon name="exchange" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
             <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>Transactions</Text>
+              <Text style={[styles.optionText, isDarkMode && styles.darkText]}>Transactions</Text>
               <Text style={styles.optionSubText}>View your transaction history</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Notifications')}>
-            <Icon name="bell" size={24} style={styles.icon} />
+            <Icon name="bell" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
             <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>Notifications</Text>
+              <Text style={[styles.optionText, isDarkMode && styles.darkText]}>Notifications</Text>
               <Text style={styles.optionSubText}>View all your notifications</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('ShareApp')}>
-            <Icon name="share-alt" size={24} style={styles.icon} />
+            <Icon name="share-alt" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
             <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>Share App</Text>
+              <Text style={[styles.optionText, isDarkMode && styles.darkText]}>Share App</Text>
               <Text style={styles.optionSubText}>Share via link</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('ReportIssues')}>
-            <Icon name="exclamation-triangle" size={24} style={styles.icon} />
+            <Icon name="exclamation-triangle" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
             <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>Report App Issues</Text>
+              <Text style={[styles.optionText, isDarkMode && styles.darkText]}>Report App Issues</Text>
               <Text style={styles.optionSubText}>Share your feedback and help us improve</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('Settings')}>
-            <Icon name="cog" size={24} style={styles.icon} />
+            <Icon name="cog" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
             <View style={styles.optionTextContainer}>
-              <Text style={styles.optionText}>Settings</Text>
+              <Text style={[styles.optionText, isDarkMode && styles.darkText]}>Settings</Text>
               <Text style={styles.optionSubText}>Set notifications and others</Text>
             </View>
           </TouchableOpacity>
@@ -118,10 +120,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     width: '100%'
   },
+  darkContainer: {
+    backgroundColor: '#121212',
+  },
   headerContainer: {
     backgroundColor: '#1C2938',
     paddingVertical: 20,
     paddingHorizontal: 10,
+  },
+  darkText: {
+    color: '#fff',
   },
   header: {
     fontSize: 24,
@@ -150,6 +158,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 20,
+  },
+  iconDark: {
+    color: '#fff',
   },
   optionTextContainer: {
     justifyContent: 'center',

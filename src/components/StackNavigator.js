@@ -9,6 +9,7 @@ import historyIcon from "../assets/history.png";
 import contactIcon from "../assets/contact.png";
 import profileIcon from "../assets/profile.png";
 import { PRIMARY_COLOR } from "../utils/Utils";
+import { ThemeProvider , useTheme} from "../ThemeContext/ThemeProvider";
 import Home from "../pages/Home";
 import ContactUs from "../pages/contactUs";
 import ProfileScreen from "../pages/profile";
@@ -22,6 +23,8 @@ import LoginScreen from "../pages/Login";
 import RegisterScreen from "../pages/Register";
 import AccountCreated from "../pages/AccountCreated";
 import ReportIssuesScreen from "../pages/ReportAppIssues";
+import ShareAppScreen from "../pages/ShareApp";
+import SettingsScreen from "../pages/Settings";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -63,6 +66,9 @@ function ProfileStack() {
       <Stack.Screen name="AccountCreated" component={AccountCreated} />
       <Stack.Screen name="MyBookings" component={BookingsScreen} />
       <Stack.Screen name="ReportIssues" component={ReportIssuesScreen} />
+      <Stack.Screen name="ShareApp" component={ShareAppScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="ChangePassword" component={AccountSettingsScreen} />
 
     </Stack.Navigator>
   );
@@ -171,9 +177,14 @@ function ContactUsStackScreen() {
 
 // Main App Navigation Container
 export default function App() {
+
+  const { theme } = useTheme();
+
   return (
-    <NavigationContainer>
-      <MainTabs />
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer theme = {theme}>
+        <MainTabs />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

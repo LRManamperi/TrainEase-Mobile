@@ -13,8 +13,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import { BASE_URL } from "@env"; 
 import { useRoute } from '@react-navigation/native';
+import { useTheme } from '../ThemeContext/ThemeProvider';
 
 export default function Checkout() {
+  const { isDarkMode } = useTheme();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('credit-card');
   const [cardNumber, setCardNumber] = useState('');
   const [cardHolderName, setCardHolderName] = useState('');
@@ -71,7 +73,7 @@ export default function Checkout() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
       <View style={styles.header}>
         <MaterialIcons name="lock" size={24} color="gray" style={styles.securityIcon} />
         <Text style={styles.headerText}>
@@ -80,7 +82,7 @@ export default function Checkout() {
       </View>
 
       <View style={styles.paymentContainer}>
-        <Text style={styles.sectionTitle}>Payment Method</Text>
+        <Text style={[styles.sectionTitle, isDarkMode && styles.darkText]}>Payment Method</Text>
         <View style={styles.radioGroup}>
           <RadioButton.Group
             onValueChange={newValue => setSelectedPaymentMethod(newValue)}
@@ -88,11 +90,11 @@ export default function Checkout() {
           >
             <View style={styles.radioItem}>
               <RadioButton value="credit-card" color = "lightblue"/>
-              <Text style={styles.radioLabel}>Credit card</Text>
+              <Text style={[styles.radioLabel, isDarkMode && styles.darkText]}>Credit card</Text>
             </View>
             <View style={styles.radioItem}>
               <RadioButton value="debit-card" color = "lightblue"/>
-              <Text style={styles.radioLabel}>Debit card</Text>
+              <Text style={[styles.radioLabel, isDarkMode && styles.darkText]}>Debit card</Text>
             </View>
           </RadioButton.Group>
         </View>
@@ -103,7 +105,7 @@ export default function Checkout() {
           <Image source={require('../assets/icons8-american-express-squared-48.png')} style={styles.cardIcon} />
         </View>
 
-        <Text style={styles.sectionTitle}>Card Details</Text>
+        <Text style={[styles.sectionTitle, isDarkMode && styles.darkText]}>Card Details</Text>
         <TextInput
           mode="outlined"
           label="Card Number"
@@ -163,6 +165,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 16,
     backgroundColor: '#fff',
+  },
+  darkContainer: {
+    backgroundColor: '#121212',
+  },
+  darkText: {
+    color: '#fff',
   },
   header: {
     flexDirection: 'row',

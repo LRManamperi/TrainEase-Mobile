@@ -1,13 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { navigate } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Login from './Login';
+import { useTheme } from '../ThemeContext/ThemeProvider';
 
 
-const ContactUs = ({ navigation }) => {
+
+export default function ContactUs() {
+  const { isDarkMode } = useTheme();
+  const navigation = useNavigation();
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, isDarkMode && styles.darkContainer]}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Need help with recent booking?</Text>
         <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
@@ -15,30 +20,30 @@ const ContactUs = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.separator} />
-      <Text style={styles.quickGuidesHeader}>Quick Guides</Text>
+      <Text style={[styles.quickGuidesHeader, isDarkMode && styles.darkText]}>Quick Guides</Text>
       <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('AccountSettings')}>
-        <Icon name="cog" size={24} style={styles.icon} />
+        <Icon name="cog" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
         <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>Account Settings</Text>
+          <Text style={[styles.optionText, isDarkMode && styles.darkText]}>Account Settings</Text>
           <Text style={styles.optionSubText}>Update email, phone no. or password</Text>
         </View>
-        <Icon name="chevron-right" size={16} style={styles.chevronIcon} />
+        <Icon name="chevron-right" size={16} style={[styles.chevronIcon, isDarkMode && styles.chevronIconDark ]} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('PreBookingQueries')}>
-        <Icon name="question-circle" size={24} style={styles.icon} />
+        <Icon name="question-circle" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
         <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>Pre-booking Queries</Text>
+          <Text style={[styles.optionText, isDarkMode && styles.darkText]}>Pre-booking Queries</Text>
           <Text style={styles.optionSubText}>Facing issue while booking? Not able to book?</Text>
         </View>
-        <Icon name="chevron-right" size={16} style={styles.chevronIcon} />
+        <Icon name="chevron-right" size={16} style={[styles.chevronIcon, isDarkMode && styles.chevronIconDark ]} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('ManagePaymentMethods')}>
-        <Icon name="credit-card" size={24} style={styles.icon} />
+        <Icon name="credit-card" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
         <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>Manage Payment Methods</Text>
+          <Text style={[styles.optionText, isDarkMode && styles.darkText]}>Manage Payment Methods</Text>
           <Text style={styles.optionSubText}>Delete saved cards or link/delink wallets</Text>
         </View>
-        <Icon name="chevron-right" size={16} style={styles.chevronIcon} />
+        <Icon name="chevron-right" size={16} style={[styles.chevronIcon, isDarkMode && styles.chevronIconDark ]} />
       </TouchableOpacity>
     </ScrollView>
   );
@@ -50,6 +55,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     width: '100%'
   },
+  darkContainer: {
+    backgroundColor: '#121212',
+  },
   headerContainer: {
     backgroundColor: '#1C2938',
     paddingVertical: 25,
@@ -60,6 +68,9 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     fontWeight: 'semi-bold',
+    color: '#fff',
+  },
+  darkText: {
     color: '#fff',
   },
   loginButton: {
@@ -94,6 +105,9 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 20,
   },
+  iconDark: {
+    color: 'white',
+  },
   optionTextContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -108,6 +122,9 @@ const styles = StyleSheet.create({
   chevronIcon: {
     color: '#666',
   },
+  chevronIconDark: {
+    color: 'white',
+  },
 });
 
-export default ContactUs;
+

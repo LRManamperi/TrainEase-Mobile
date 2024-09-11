@@ -4,8 +4,10 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import axios from "axios";
 import { BASE_URL } from "@env";
 import CustomInput from "../components/CustomInput"; 
+import { useTheme } from "../ThemeContext/ThemeProvider";
 
 const AccountSettings = ({ navigation }) => {
+  const { isDarkMode } = useTheme();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -55,7 +57,7 @@ const AccountSettings = ({ navigation }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -67,34 +69,34 @@ const AccountSettings = ({ navigation }) => {
       </View>
       <View style={styles.formContainer}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, isDarkMode && styles.inputDark]}
           placeholder="Username"
           value={username}
           onChangeText={setUsername}
         />
         <TextInput
-          style={styles.input}
+          style={[styles.input, isDarkMode && styles.inputDark]}
           placeholder="Email Address"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
         />
         <TextInput
-          style={styles.input}
+          style={[styles.input, isDarkMode && styles.inputDark]}
           placeholder="Phone Number"
           value={phoneNumber}
           onChangeText={setPhoneNumber}
           keyboardType="phone-pad"
         />
         <TextInput
-          style={styles.input}
+          style={[styles.input, isDarkMode && styles.inputDark]}
           placeholder="Old Password"
           value={oldPassword}
           onChangeText={setOldPassword}
           secureTextEntry
         />
         <TextInput
-          style={styles.input}
+          style={[styles.input, isDarkMode && styles.inputDark]}
           placeholder="New Password"
           value={newPassword}
           onChangeText={setNewPassword}
@@ -113,11 +115,17 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#fff',
   },
+  darkContainer: {
+    backgroundColor: '#121212',
+  },
+  darkText: {
+    color: '#fff',
+  },
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#1C2938',
-    paddingTop: 45,
+    paddingTop: 20,
     paddingBottom: 17,
     paddingLeft: 15,
   },
@@ -125,8 +133,9 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   headerTitle: {
-    fontSize: 28,
+    fontSize: 24,
     color: 'white',
+    fontWeight: 'bold',
   },
   formContainer: {
     padding: 16,
@@ -138,6 +147,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 15,
     paddingHorizontal: 10,
+  },
+  inputDark: {
+    color: '#fff',
+    borderColor: '#333',
+    backgroundColor: '#333',
   },
   saveButton: {
     backgroundColor: 'black',

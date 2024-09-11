@@ -131,8 +131,10 @@ import SeatLayout from '../components/seatLayout';
 import TripSummary from '../components/tripSummary';
 import { BASE_URL } from "@env";
 import { useSelector } from 'react-redux';
+import { useTheme } from '../ThemeContext/ThemeProvider';
 
 const SeatSelection = () => {
+  const { isDarkMode } = useTheme();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [coaches, setCoaches] = useState([]);
   const [bookedSeats, setBookedSeats] = useState([]);
@@ -235,8 +237,8 @@ const SeatSelection = () => {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>{selectedClass.name} </Text>
+    <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
+      <Text style={[styles.title, isDarkMode && styles.darkText]}>{selectedClass.name} </Text>
 
       {/* Scrollable coach layout */}
       <ScrollView 
@@ -249,7 +251,7 @@ const SeatSelection = () => {
       >
         {coaches.map((coach) => (
           <View key={coach._id} style={styles.coachBox}>
-            <Text style={styles.coachNumber}>Coach No: {coach.coachNumber}</Text>
+            <Text style={[styles.coachNumber, isDarkMode && styles.darkText]}>Coach No: {coach.coachNumber}</Text>
             <SeatLayout
               seats={coach.seats}
               bookedSeats={bookedSeats}
@@ -290,6 +292,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 16,
+  },
+  darkContainer: {
+    backgroundColor: '#121212',
   },
   title: {
     fontSize: 24,
@@ -337,6 +342,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     marginTop: 20,
+  },
+  darkText: {
+    color: '#fff',
   },
   lineContainer: {
     height: 10,

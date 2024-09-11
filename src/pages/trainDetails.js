@@ -5,8 +5,10 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from "axios";
 import getTimeDiffInMins from "../utils/timeDuration";
 import { BASE_URL } from "@env"; 
+import { useTheme } from "../ThemeContext/ThemeProvider";
 
 export default function TrainDetails({ route }) {
+  const { isDarkMode } = useTheme();
   const [trainDetails, setTrainDetails] = useState(null);
   const [selectedClass, setSelectedClass] = useState(null);
   const [scrollIndex, setScrollIndex] = useState(0);
@@ -74,8 +76,8 @@ export default function TrainDetails({ route }) {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>
+    <ScrollView style={[styles.container, isDarkMode && styles.darkContainer]}>
+      <Text style={[styles.title, isDarkMode && styles.darkText]}>
         {trainDetails.fromStation} 
         <Icon name="arrow-forward" style={styles.arrowIcon} />
         {trainDetails.toStation}
@@ -128,6 +130,7 @@ export default function TrainDetails({ route }) {
                 selectedClass && selectedClass._id === classOption._id
                   ? styles.selectedClass
                   : null,
+                isDarkMode && styles.classOptionDark,
               ]}
               onPress={() => handleClassClick(classOption)}
               disabled={!classOption.available}
@@ -138,7 +141,7 @@ export default function TrainDetails({ route }) {
               </View>
               <View>
                 {classOption.facilities.slice(0, 3).map((facility, index) => (
-                  <View key={index} style={styles.facility}>
+                  <View key={index} style={[styles.facility, isDarkMode && styles.darkText]}>
                     <Icon name="check" style={styles.checkIcon} />
                     <Text>{facility}</Text>
                   </View>
@@ -171,10 +174,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignContent: "center",
   },
+  darkContainer: {
+    backgroundColor: '#121212',
+  },
   title: {
     fontSize: 21,
     fontWeight: "bold",
     marginBottom: 20,
+  },
+  darkText: {
+    color: '#fff',
   },
   arrowIcon: {
     fontSize: 24,
@@ -262,6 +271,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#207497",
     width: 325
+  },
+  classOptionDark: {
+    backgroundColor: "#F1F8FB",
   },
   selectedClass: {
     borderWidth: 2,

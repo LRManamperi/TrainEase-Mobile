@@ -7,8 +7,10 @@ import axios from "axios";
 import backgroundImage from "../assets/train.png";
 import { formatDate } from "../utils/Utils";
 import { BASE_URL } from "@env";  
+import { useTheme } from "../ThemeContext/ThemeProvider";
 
 export default function HomeScreen({ navigation }) {
+  const { isDarkMode } = useTheme();
   const [selectedValue1, setSelectedValue1] = useState("");
   const [selectedValue2, setSelectedValue2] = useState("");
   const [selectedDate, setSelectedDate] = useState("");  
@@ -62,8 +64,9 @@ export default function HomeScreen({ navigation }) {
         <View style={{ borderRadius: 15, overflow: "hidden" }}>
           <Picker
             selectedValue={selectedValue1}
-            style={styles.picker}
+            style={isDarkMode ? styles.pickerDark : styles.picker}
             onValueChange={(itemValue) => setSelectedValue1(itemValue)}
+            dropdownIconColor={isDarkMode ? 'white' : 'black'} 
           >
             <Picker.Item label="From" value="" />
             {stations.map((station, index) => (
@@ -74,7 +77,7 @@ export default function HomeScreen({ navigation }) {
         <View style={{ borderRadius: 15, overflow: "hidden" }}>
           <Picker
             selectedValue={selectedValue2}
-            style={styles.picker}
+            style={isDarkMode ? styles.pickerDark : styles.picker}
             onValueChange={(itemValue) => setSelectedValue2(itemValue)}
           >
             <Picker.Item label="To" value="" />
@@ -84,11 +87,11 @@ export default function HomeScreen({ navigation }) {
           </Picker>
         </View>
         <TouchableOpacity onPress={showDatepicker}>
-          <View style={styles.datePicker}>
-            <Text style={styles.dateText}>
+          <View style={isDarkMode ? styles.datePickerDark : styles.datePicker}>
+            <Text style={isDarkMode ? styles.dateTextDark : styles.dateText}>
               {selectedDate ? formatDate(selectedDate) : "mm/dd/yyyy"}
             </Text>
-            <FontAwesome name="calendar-o" size={24} color="black" />
+            <FontAwesome name="calendar-o" size={24} color={isDarkMode ? "white" : "black"} />
           </View>
         </TouchableOpacity>
 
@@ -122,6 +125,15 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 7,
     borderRadius: 15,
+    color: "black",
+  },
+  pickerDark: {
+    backgroundColor: '#121212',
+    width: "100%",
+    height: 50,
+    marginBottom: 7,
+    borderRadius: 15,
+    color: "white",
   },
   container: {
     marginTop: 40,
@@ -140,10 +152,27 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     marginRight: 20,
   },
+  datePickerDark: {
+    backgroundColor: '#121212',
+    width: "100%",
+    paddingVertical: 5,
+    paddingHorizontal: 6,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderRadius: 15,
+    marginRight: 20,
+  },
   dateText: {
     fontSize: 16,
     paddingVertical: 12,
     paddingLeft: 10
+  },
+  dateTextDark: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingLeft: 10,
+    color: "white",
   },
   searchButton: {
     borderRadius: 10,

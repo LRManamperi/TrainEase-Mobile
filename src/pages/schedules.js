@@ -6,8 +6,10 @@ import axios from 'axios';
 import { BASE_URL } from "@env"; 
 import { useSelector } from "react-redux";  
 import Login from './Login';
+import { useTheme } from '../ThemeContext/ThemeProvider';
 
 export default function Schedules() {
+  const { isDarkMode } = useTheme();
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [date, setDate] = useState('');
@@ -120,8 +122,8 @@ export default function Schedules() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>
+    <SafeAreaView style={[styles.container, isDarkMode && styles.darkContainer]}>
+      <Text style={[styles.title ,isDarkMode && styles.darkText]}>
         {from} <Icon name="arrow-forward" style={styles.arrowIcon} /> {to}
       </Text>
       {schedules.length === 0 ? (
@@ -144,6 +146,9 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
   },
+  darkContainer: {
+    backgroundColor: '#121212',
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -158,6 +163,9 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingBottom: 20,
+  },
+  darkText: {
+    color: '#fff',
   },
   card: {
     backgroundColor: '#F4F6F6',

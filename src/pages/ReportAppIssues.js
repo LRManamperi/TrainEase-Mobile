@@ -3,9 +3,11 @@ import { View, Text, TextInput, StyleSheet, Alert, ScrollView, ActivityIndicator
 import { Button } from 'react-native-paper';
 import axios from 'axios';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useTheme } from '../ThemeContext/ThemeProvider';
 import CustomInput from '../components/CustomInput';
 
 export default function ReportIssuesScreen() {
+  const {isDarkMode} = useTheme();
   const [email, setEmail] = useState('');
   const [issue, setIssue] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,13 +55,13 @@ export default function ReportIssuesScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
       <View style={styles.header}>
         <MaterialIcons name="report-problem" size={24} color="gray" style={styles.icon} />
         <Text style={styles.headerText}>Report App Issues</Text>
       </View>
 
-      <Text style={styles.label}>Your Email</Text>
+      <Text style={styles.label, isDarkMode && styles.darkText}>Your Email</Text>
       <TextInput
         mode="outlined"
         placeholder="Enter your email"
@@ -70,7 +72,7 @@ export default function ReportIssuesScreen() {
         autoCapitalize="none"
       />
 
-      <Text style={styles.label}>Describe the Issue</Text>
+      <Text style={styles.label, isDarkMode && styles.darkText}>Describe the Issue</Text>
       <TextInput
         mode="outlined"
         placeholder="Describe the issue you're facing"
@@ -105,6 +107,9 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#fff',
   },
+  darkContainer: {
+    backgroundColor: '#121212',
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -130,6 +135,9 @@ const styles = StyleSheet.create({
     borderColor: 'lightgray',
     borderRadius: 5,
     marginBottom: 16,
+  },
+  darkText: {
+    color: '#fff',
   },
   issueInput: {
     height: 100,

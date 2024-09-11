@@ -5,8 +5,10 @@ import moment from "moment";
 import { useSelector } from 'react-redux';
 import { BASE_URL } from "@env"; 
 import YourTripsWillAppearHere from "../assets/trips.png"; 
+import { useTheme } from "../ThemeContext/ThemeProvider";
 
 export default function BookingHistory({ navigation }) {
+  const { isDarkMode } = useTheme();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,7 +53,7 @@ export default function BookingHistory({ navigation }) {
 
   if (!currentUser) {
     return (
-      <View style={styles.noBookingsContainer}>
+      <View style={[styles.noBookingsContainer, isDarkMode && styles.darkContainer]}>
         <Image source={YourTripsWillAppearHere} style={styles.noBookingsImage} />
         <Text style={styles.noBookingsText}>Please log in to see your booking history.</Text>
       </View>
@@ -60,9 +62,9 @@ export default function BookingHistory({ navigation }) {
 
   if (bookings.length === 0) {
     return (
-      <View style={styles.noBookingsContainer}>
+      <View style={[styles.noBookingsContainer, isDarkMode && styles.darkContainer]}>
         <Image source={YourTripsWillAppearHere} style={styles.noBookingsImage} />
-        <Text style={styles.noBookingsText}>Your trips will appear here once booked!</Text>
+        <Text style={[styles.noBookingsText, isDarkMode && styles.darkText]}>Your trips will appear here once booked!</Text>
       </View>
     );
   }
@@ -78,13 +80,13 @@ export default function BookingHistory({ navigation }) {
         const toStation = booking.to.stationRef?.name || 'Unknown Station';
 
         return (
-          <View key={index} style={styles.bookingCard}>
-            <Text style={styles.bookingTextHeader}>{trainName}</Text>
-            <Text style={styles.bookingText}>From: {fromStation}</Text>
-            <Text style={styles.bookingText}>To: {toStation}</Text>
-            <Text style={styles.bookingText}>Date: {bookingDate.format("MMMM Do YYYY")}</Text>
-            <Text style={styles.bookingText}>Passengers: {booking.seats.length}</Text>
-            <Text style={styles.bookingText}>Total Amount: {booking.totalAmount} LKR</Text>
+          <View key={index} style={[styles.bookingCard, isDarkMode && styles.bookingCardDark]}>
+            <Text style={[styles.bookingTextHeader, isDarkMode && styles.darkText]}>{trainName}</Text>
+            <Text style={[styles.bookingText, isDarkMode && styles.darkText]}>From: {fromStation}</Text>
+            <Text style={[styles.bookingText, isDarkMode && styles.darkText]}>To: {toStation}</Text>
+            <Text style={[styles.bookingText, isDarkMode && styles.darkText]}>Date: {bookingDate.format("MMMM Do YYYY")}</Text>
+            <Text style={[styles.bookingText, isDarkMode && styles.darkText]}>Passengers: {booking.seats.length}</Text>
+            <Text style={[styles.bookingText, isDarkMode && styles.darkText]}>Total Amount: {booking.totalAmount} LKR</Text>
 
             {isPastBooking ? (
               <Text style={styles.cancelNotAllowedText}>Cancellation not allowed for past bookings</Text>
@@ -108,6 +110,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f8f8f8",
   },
+  darkContainer: {
+    backgroundColor: '#121212',
+  },
   noBookingsContainer: {
     flex: 1,
     justifyContent: "center",
@@ -130,6 +135,9 @@ const styles = StyleSheet.create({
     padding: 9,
     marginBottom: 1,
     elevation: 3,
+  },
+  bookingCardDark: {
+    backgroundColor:'#121212',
   },
   bookingText: {
     fontSize: 14,
@@ -159,5 +167,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: "right",
     fontWeight: "bold",
+  },
+  darkText: {
+    color: '#fff',
   },
 });
