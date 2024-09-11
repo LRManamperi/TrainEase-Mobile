@@ -25,7 +25,8 @@ export default function TrainDetails({ route }) {
           console.error("Missing _id in one of the objects:", { scheduleId, fromStopId, toStopId });
           return;
         }
-
+        console.log('BASE_URL:', BASE_URL);
+        
         const response = await axios.get(`${BASE_URL}/api/search/train-details`, {
           params: { scheduleId, fromStopId, toStopId },
         });

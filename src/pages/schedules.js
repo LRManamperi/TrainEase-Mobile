@@ -31,6 +31,7 @@ export default function Schedules() {
   useEffect(() => {
     async function fetchStations() {
       try {
+        console.log('BASE_URL:', BASE_URL);
         const response = await axios.get(`${BASE_URL}/api/search/stations`);
         if (response.status === 200) {
           const resStations = response.data.map(station => ({
@@ -62,6 +63,7 @@ export default function Schedules() {
     }
 
     try {
+      console.log('BASE_URL:', BASE_URL);
       const response = await axios.get(`${BASE_URL}/api/search/schedules`, {
         params: { fromName: from, toName: to, date: date }
       });
@@ -100,7 +102,7 @@ export default function Schedules() {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card} onPress={() => handleOpen(item)}>
+      <TouchableOpacity style={styles.card} onPress={() => handleOpen(item)}>
       <View style={styles.row}>
         <View style={styles.trainInfo}>
           <Icon name="train" size={20} color="#000" />

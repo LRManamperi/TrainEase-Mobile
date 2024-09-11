@@ -195,6 +195,7 @@ const SeatSelection = () => {
     }
 
     try {
+      console.log('BASE_URL:', BASE_URL);
       const response = await axios.post(`${BASE_URL}/api/booking/holdSeats`, {
         userId: currentUser._id,
         scheduleId: schedule._id,

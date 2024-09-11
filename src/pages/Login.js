@@ -35,6 +35,7 @@ export default function Login({ navigation }) {
 
     // Dispatch loginStart to set loading state
     dispatch(loginStart());
+    
 
     axios
       .post(`${BASE_URL}/api/user/login`, body, {
