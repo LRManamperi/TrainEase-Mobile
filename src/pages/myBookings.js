@@ -32,6 +32,7 @@ export default function BookingHistory({ navigation }) {
 
   const handleCancelBooking = async (bookingId) => {
     try {
+      console.log('BASE_URL:', BASE_URL);
       const response = await axios.delete(`${BASE_URL}/api/user/cancelBooking/${bookingId}`);
       if (response.status === 200) {
         Alert.alert("Success", "Booking cancelled successfully");
@@ -81,7 +82,7 @@ export default function BookingHistory({ navigation }) {
             <Text style={styles.bookingTextHeader}>{trainName}</Text>
             <Text style={styles.bookingText}>From: {fromStation}</Text>
             <Text style={styles.bookingText}>To: {toStation}</Text>
-            <Text style={styles.bookingText}>Date: {bookingDate.format("MMMM Do YYYY, h:mm A")}</Text>
+            <Text style={styles.bookingText}>Date: {bookingDate.format("MMMM Do YYYY")}</Text>
             <Text style={styles.bookingText}>Passengers: {booking.seats.length}</Text>
             <Text style={styles.bookingText}>Total Amount: {booking.totalAmount} LKR</Text>
 

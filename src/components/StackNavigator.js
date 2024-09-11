@@ -9,8 +9,6 @@ import historyIcon from "../assets/history.png";
 import contactIcon from "../assets/contact.png";
 import profileIcon from "../assets/profile.png";
 import { PRIMARY_COLOR } from "../utils/Utils";
-
-// Import your screens
 import Home from "../pages/Home";
 import ContactUs from "../pages/contactUs";
 import ProfileScreen from "../pages/profile";
@@ -57,7 +55,7 @@ function ProfileStack() {
         headerTintColor: "white",
       }}
     >
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="ProfileMain" component={ProfileScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} />
