@@ -92,7 +92,7 @@ export default function Profile({ navigation }) {
               <Text style={styles.optionSubText}>Share via link</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('ReportAppIssues')}>
+          <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('ReportIssues')}>
             <Icon name="exclamation-triangle" size={24} style={styles.icon} />
             <View style={styles.optionTextContainer}>
               <Text style={styles.optionText}>Report App Issues</Text>

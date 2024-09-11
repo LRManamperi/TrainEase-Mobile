@@ -21,6 +21,7 @@ import AccountSettingsScreen from "../pages/AccountSettings";
 import LoginScreen from "../pages/Login";
 import RegisterScreen from "../pages/Register";
 import AccountCreated from "../pages/AccountCreated";
+import ReportIssuesScreen from "../pages/ReportAppIssues";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -55,12 +56,13 @@ function ProfileStack() {
         headerTintColor: "white",
       }}
     >
-      <Stack.Screen name="ProfileMain" component={ProfileScreen} />
+      <Stack.Screen name="MyProfile" component={ProfileScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} />
       <Stack.Screen name="AccountCreated" component={AccountCreated} />
       <Stack.Screen name="MyBookings" component={BookingsScreen} />
+      <Stack.Screen name="ReportIssues" component={ReportIssuesScreen} />
 
     </Stack.Navigator>
   );
