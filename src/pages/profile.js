@@ -17,6 +17,7 @@ export default function Profile({ navigation }) {
     dispatch(logOutStart());
 
     try {
+      console.log('BASE_URL:', BASE_URL);
       await axios.get(`${BASE_URL}/api/user/logout`, null, {
         withCredentials: true,
       });
