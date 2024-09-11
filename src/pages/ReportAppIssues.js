@@ -61,7 +61,7 @@ export default function ReportIssuesScreen() {
         <Text style={styles.headerText}>Report App Issues</Text>
       </View>
 
-      <Text style={styles.label, isDarkMode && styles.darkText}>Your Email</Text>
+      <Text style={[styles.label, isDarkMode && styles.darkText]}>Your Email</Text>
       <TextInput
         mode="outlined"
         placeholder="Enter your email"
@@ -72,7 +72,7 @@ export default function ReportIssuesScreen() {
         autoCapitalize="none"
       />
 
-      <Text style={styles.label, isDarkMode && styles.darkText}>Describe the Issue</Text>
+      <Text style={[styles.label, isDarkMode && styles.darkText]}>Describe the Issue</Text>
       <TextInput
         mode="outlined"
         placeholder="Describe the issue you're facing"

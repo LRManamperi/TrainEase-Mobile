@@ -65,6 +65,7 @@ export default function Schedules() {
     }
 
     try {
+      
       console.log('BASE_URL:', BASE_URL);
       const response = await axios.get(`${BASE_URL}/api/search/schedules`, {
         params: { fromName: from, toName: to, date: date }

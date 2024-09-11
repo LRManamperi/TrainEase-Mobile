@@ -28,6 +28,7 @@ import ShareAppScreen from "../pages/ShareApp";
 import SettingsScreen from "../pages/Settings";
 import TransactionsScreen from "../pages/Transactions";
 import ManagePaymentMethods from "../pages/ManagePaymentMethods";
+import PreBookingQueries from "../pages/PreBookingQueries";
 
 
 
@@ -181,6 +182,11 @@ function ContactUsStackScreen() {
       component = {ManagePaymentMethods}
       options = {{headerShown: true, title: "Manage Payment Methods", headerStyle: {backgroundColor: PRIMARY_COLOR}, headerTintColor: "white"}}
       />
+      <Stack.Screen
+      name = "PreBookingQueries"
+      component={PreBookingQueries}
+      options = {{headerShown: true, title: "Pre Booking Queries", headerStyle: {backgroundColor: PRIMARY_COLOR}, headerTintColor: "white"}}
+  />
       
     </Stack.Navigator>
   );

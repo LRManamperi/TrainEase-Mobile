@@ -23,7 +23,6 @@ export default function HomeScreen({ navigation }) {
     async function fetchStations() {
       try {
         console.log('BASE_URL:', BASE_URL);
-        
         const response = await axios.get(`${BASE_URL}/api/search/stations`);
         setStations(response.data.map(station => ({ label: station.name })));
       } catch (error) {
