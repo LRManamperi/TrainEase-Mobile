@@ -35,8 +35,7 @@ export default function Login({ navigation }) {
 
     // Dispatch loginStart to set loading state
     dispatch(loginStart());
-    
-
+    console.log('BASE_URL:', BASE_URL);
     axios
       .post(`${BASE_URL}/api/user/login`, body, {
         headers: { "Content-Type": "application/json" },
@@ -46,6 +45,7 @@ export default function Login({ navigation }) {
         // Dispatch loginSuccess and update the state with user data
         dispatch(loginSuccess(response.data));
         console.log("Login Successful");
+        Alert.alert("Login Successful", "You have successfully logged in.");
         navigation.navigate("Home");
       })
       .catch((error) => {
