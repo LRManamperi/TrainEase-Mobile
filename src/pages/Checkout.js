@@ -47,6 +47,29 @@ export default function Checkout() {
     }
   };
 
+  // Function to handle card number input (only numeric)
+  const handleCardNumberChange = (input) => {
+    const formattedCardNumber = input
+      .replace(/\D/g, '') // Remove non-numeric characters
+      .replace(/(\d{4})(?=\d)/g, '$1 '); // Add a space after every 4 digits
+    setCardNumber(formattedCardNumber.slice(0, 19)); // Limit to 19 characters (16 digits + 3 spaces)
+  };
+  
+
+  // Function to handle expiry date input (MM/YY)
+  const handleExpiryDateChange = (input) => {
+    const formattedExpiry = input
+      .replace(/\D/g, '') // Remove non-numeric characters
+      .replace(/(\d{2})(\d{2})/, '$1/$2'); // Format as MM/YY
+    setExpiryDate(formattedExpiry.slice(0, 5)); // Limit to MM/YY format
+  };
+
+  // Function to handle CVC input (only numeric, limit to 4 digits)
+  const handleSecurityCodeChange = (input) => {
+    const formattedCVC = input.replace(/\D/g, ''); // Remove non-numeric characters
+    setSecurityCode(formattedCVC.slice(0, 4)); // Limit to 4 digits
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -85,10 +108,11 @@ export default function Checkout() {
           mode="outlined"
           label="Card Number"
           value={cardNumber}
-          onChangeText={setCardNumber}
+          onChangeText={handleCardNumberChange}
           keyboardType="numeric"
           style={styles.input}
           theme={{ colors: { primary: 'lightblue' } }}
+          maxLength={16} // Limit to 16 digits
         />
         <TextInput
           mode="outlined"
@@ -103,19 +127,21 @@ export default function Checkout() {
             mode="outlined"
             label="Expiry Date (MM/YY)"
             value={expiryDate}
-            onChangeText={setExpiryDate}
+            onChangeText={handleExpiryDateChange}
             keyboardType="numeric"
             style={[styles.input, styles.expiryInput]}
             theme={{ colors: { primary: 'lightblue' } }}
+            maxLength={5} // Limit to MM/YY format
           />
           <TextInput
             mode="outlined"
             label="Security Code (CVC)"
             value={securityCode}
-            onChangeText={setSecurityCode}
+            onChangeText={handleSecurityCodeChange}
             keyboardType="numeric"
             style={[styles.input, styles.cvcInput]}
             theme={{ colors: { primary: 'lightblue' } }}
+            maxLength={4} // Limit to 4 digits (for Amex, it's 4; for others, 3)
           />
         </View>
       </View>
