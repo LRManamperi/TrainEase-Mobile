@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView , Divider} from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import {Divider} from 'react-native-paper'
 import { useTheme } from '../ThemeContext/ThemeProvider';
 import { Icon } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -18,7 +19,7 @@ export default function PreBookingQueries() {
           </Text>
         </View>
       </View>
-      <Divider
+      <Divider style={styles.divider} />
 
       <View style={styles.queryItem}>
       <MaterialIcons name="report-problem" size={24} color="gray" style={styles.icon} />
@@ -29,7 +30,7 @@ export default function PreBookingQueries() {
           </Text>
         </View>
       </View>
-
+      <Divider style={styles.divider} />
       <View style={styles.queryItem}>
         <Icon name="phone" size={24} style={[styles.icon, isDarkMode && styles.iconDark]} />
         <View style={styles.textContainer}>
@@ -39,6 +40,7 @@ export default function PreBookingQueries() {
           </Text>
         </View>
       </View>
+      <Divider style={styles.divider} />
     </ScrollView>
   );
 }
@@ -82,5 +84,8 @@ const styles = StyleSheet.create({
   queryAnswer: {
     fontSize: 16,
     align : "left"
+  },
+  divider: {
+    marginBottom: 16,
   },
 });
