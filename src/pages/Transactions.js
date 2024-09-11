@@ -18,6 +18,7 @@ export default function TransactionsScreen() {
     if (currentUser) {
       async function fetchTransactions() {
         try {
+          
           const response = await axios.get(`${BASE_URL}/api/user/history`);
           const bookings = response.data;
 

@@ -28,7 +28,6 @@ export default function TrainDetails({ route }) {
           return;
         }
         console.log('BASE_URL:', BASE_URL);
-        
         const response = await axios.get(`${BASE_URL}/api/search/train-details`, {
           params: { scheduleId, fromStopId, toStopId },
         });

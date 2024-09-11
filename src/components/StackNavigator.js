@@ -48,8 +48,8 @@ function HomeStack() {
       <Stack.Screen name="TrainEase" component={Home} />
       <Stack.Screen name="Schedules" component={Schedules} />
       <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="TrainDetails" component={TrainDetails} />
-      <Stack.Screen name="SeatSelection" component={SeatSelection} />
+      <Stack.Screen name="TrainDetails" component={TrainDetails} options = {{title : "Train Details"}} />
+      <Stack.Screen name="SeatSelection" component={SeatSelection} options = {{title : "Seat Selection"}} />
       <Stack.Screen name="Checkout" component={Checkout} />
     </Stack.Navigator>
   );
@@ -68,13 +68,13 @@ function ProfileStack() {
       <Stack.Screen name="My Profile" component={ProfileScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} />
-      <Stack.Screen name="AccountCreated" component={AccountCreated} />
-      <Stack.Screen name="MyBookings" component={BookingsScreen} />
-      <Stack.Screen name="ReportIssues" component={ReportIssuesScreen} />
-      <Stack.Screen name="ShareApp" component={ShareAppScreen} />
+      <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} options={{title:"Account Settings"}}/>
+      <Stack.Screen name="AccountCreated" component={AccountCreated} options={{title:"New Account Created"}} />
+      <Stack.Screen name="MyBookings" component={BookingsScreen} options={{title:"My Bookings"}} />
+      <Stack.Screen name="ReportIssues" component={ReportIssuesScreen} options={{title:"Report Issues"}}/>
+      <Stack.Screen name="ShareApp" component={ShareAppScreen} options ={{title:"Share App"}}/>
       <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen name="ChangePassword" component={AccountSettingsScreen} />
+      <Stack.Screen name="ChangePassword" component={AccountSettingsScreen} options = {{title:"Change Password"}} />
       <Stack.Screen name="Transactions" component={TransactionsScreen} />
 
     </Stack.Navigator>

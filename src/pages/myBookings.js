@@ -48,6 +48,7 @@ export default function BookingHistory({ navigation }) {
   const handleCancelBooking = async (bookingId) => {
     try {
       console.log('BASE_URL:', BASE_URL);
+      
       const response = await axios.delete(`${BASE_URL}/api/user/cancelBooking/${bookingId}`);
       if (response.status === 200) {
         Alert.alert("Success", "Booking cancelled successfully");
