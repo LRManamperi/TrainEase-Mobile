@@ -65,7 +65,6 @@ const AccountSettings = ({ navigation }) => {
         >
           <Icon name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Account Settings</Text>
       </View>
       <View style={styles.formContainer}>
         <TextInput
@@ -121,14 +120,7 @@ const styles = StyleSheet.create({
   darkText: {
     color: '#fff',
   },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1C2938',
-    paddingTop: 20,
-    paddingBottom: 17,
-    paddingLeft: 15,
-  },
+  
   backButton: {
     marginRight: 10,
   },

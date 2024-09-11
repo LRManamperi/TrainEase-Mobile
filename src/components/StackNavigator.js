@@ -64,7 +64,7 @@ function ProfileStack() {
         headerTintColor: "white",
       }}
     >
-      <Stack.Screen name="MyProfile" component={ProfileScreen} />
+      <Stack.Screen name="My Profile" component={ProfileScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="AccountSettings" component={AccountSettingsScreen} />
@@ -169,7 +169,7 @@ function ContactUsStackScreen() {
       <Stack.Screen
         name="AccountSettings"
         component={AccountSettingsScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: true, title: "Account Settings" , headerStyle: {backgroundColor: PRIMARY_COLOR}, headerTintColor: "white"}}
       />
       <Stack.Screen
         name="Login"
