@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import Login from './Login';
 import { useTheme } from '../ThemeContext/ThemeProvider';
+import ManagePaymentMethods from './ManagePaymentMethods';
 
 
 

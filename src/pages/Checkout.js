@@ -14,6 +14,7 @@ import axios from 'axios';
 import { BASE_URL } from "@env"; 
 import { useRoute } from '@react-navigation/native';
 import { useTheme } from '../ThemeContext/ThemeProvider';
+import PushNotification from 'react-native-push-notification';
 
 export default function Checkout() {
   const { isDarkMode } = useTheme();
@@ -26,6 +27,18 @@ export default function Checkout() {
   const [isExpired, setIsExpired] = useState(false);
   const route = useRoute();
   const {selectedclass, fromStop, toStop, bookingId, selectedSeatCount, trainName, selectedSeats, schedule, expireTime} = route.params;
+
+  // const sendBookingNotification = (type) => {
+  //   let message = type === 'made' ? "Booking confirmed!" : "Booking canceled!";
+    
+  //   PushNotification.localNotification({
+  //     title: "Booking Status",
+  //     message: message,
+  //     playSound: true,
+  //     soundName: 'default',
+  //     importance: 'high', // For Android
+  //   });
+  // };
 
   const handleConfirmBooking = async () => {
     if (!cardNumber || !cardHolderName || !expiryDate || !securityCode) {
@@ -43,11 +56,13 @@ export default function Checkout() {
       console.log("Booking confirmation response:", response.data);
       setIsSuccess(true);
       Alert.alert('Success', 'Your reservation has been confirmed!');
+      //sendBookingNotification('made');
     } catch (error) {
       console.error("Failed to confirm booking:", error);
       Alert.alert("Failed to confirm booking, please try again."); // Inform the user about the error
     }
   };
+
 
   // Function to handle card number input (only numeric)
   const handleCardNumberChange = (input) => {

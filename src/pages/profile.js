@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,8 @@ import { logOutStart, logOutSuccess, logOutFailure } from '../redux/userSlice';
 import axios from 'axios';
 import { BASE_URL } from '@env';
 import { useTheme } from '../ThemeContext/ThemeProvider';
+import SLRailwayAd from "../assets/sri_lanka_railway_ad.jpg";
+import SLRailwayAd2 from "../assets/SriLankaTrainColombo.png";
 
 export default function Profile({ navigation }) {
   const { isDarkMode } = useTheme();
@@ -59,9 +61,29 @@ export default function Profile({ navigation }) {
               <Text style={styles.subHeader}>Log in to start your booking</Text>
               <Icon name="chevron-right" size={16} color="#fff" />
             </TouchableOpacity>
+            <ScrollView style={styles.container}>
+      <View style={styles.adContainer}>
+              <Image source={SLRailwayAd} style={styles.adImage} />
+              <Text style={styles.adText}>Journey through breathtaking scenery, from rolling tea plantations to pristine beaches. Explore with Sri Lanka Railways.</Text>
+            </View>
+
+            <View style={styles.adContainer}>
+              <Image source={SLRailwayAd2} style={styles.adImage} />
+              <Text style={styles.adText}>Whether it's the misty hills or sunny coasts, experience the charm of Sri Lanka by train. Reserve your seat today!
+              </Text>
+            </View>
+            <View style={styles.adContainer}>
+              <Image source={SLRailwayAd2} style={styles.adImage} />
+              <Text style={styles.adText}>Whether it's the misty hills or sunny coasts, experience the charm of Sri Lanka by train. Reserve your seat today!
+              </Text>
+            </View>
+            </ScrollView>
           </>
         )}
+        
       </View>
+     
+
 
       {/* Show booking options only if the user is logged in */}
       {currentUser && (
@@ -148,6 +170,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'flex-start',
     marginRight: 5,
+    paddingBottom: 10,
   },
   option: {
     flexDirection: 'row',
@@ -176,5 +199,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9534F',
     marginLeft: 250,  
     borderRadius: 10,
+  },
+  adContainer: {
+    marginTop: 30,
+    alignItems: "center",
+    borderColor: "black",
+    borderWidth: 1,
+    paddingBottom: 10,
+    marginHorizontal: 10,
+    borderRadius: 10,
+    backgroundColor: "#f0f0f0",
+
+  },
+  adImage: {
+    width: 340,
+    height: 150,
+    borderRadius: 10,
+  },
+  adText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: "grey",
+    textAlign: "center",
   },
 });

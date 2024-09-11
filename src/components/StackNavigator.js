@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -25,6 +26,10 @@ import AccountCreated from "../pages/AccountCreated";
 import ReportIssuesScreen from "../pages/ReportAppIssues";
 import ShareAppScreen from "../pages/ShareApp";
 import SettingsScreen from "../pages/Settings";
+import TransactionsScreen from "../pages/Transactions";
+import ManagePaymentMethods from "../pages/ManagePaymentMethods";
+
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -69,6 +74,7 @@ function ProfileStack() {
       <Stack.Screen name="ShareApp" component={ShareAppScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen name="ChangePassword" component={AccountSettingsScreen} />
+      <Stack.Screen name="Transactions" component={TransactionsScreen} />
 
     </Stack.Navigator>
   );
@@ -168,6 +174,12 @@ function ContactUsStackScreen() {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+      name = "ManagePaymentMethods"
+      component = {ManagePaymentMethods}
+      options = {{headerShown: true, title: "Manage Payment Methods", headerStyle: {backgroundColor: PRIMARY_COLOR}, headerTintColor: "white"}}
       />
       
     </Stack.Navigator>

@@ -10,6 +10,11 @@ export default function SettingsScreen() {
   const [locationEnabled, setLocationEnabled] = useState(false);
 
   const navigation = useNavigation();
+  const handleNotificationToggle = async (value) => {
+    setNotificationsEnabled(value);
+    // Add logic to save the preference or enable notifications
+  };
+  
 
   return (
     <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
@@ -36,7 +41,7 @@ export default function SettingsScreen() {
           right={() => (
             <Switch
               value={notificationsEnabled}
-              onValueChange={() => setNotificationsEnabled(!notificationsEnabled)}
+              onValueChange={handleNotificationToggle}
               color="lightblue"
             />
           )}
@@ -83,7 +88,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 16,
+    padding: 8,
     backgroundColor: '#fff',
   },
   darkContainer: {
@@ -92,7 +97,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 24,
+    marginBottom: 20,
     textAlign: 'center',
     color: '#000',
   },
@@ -100,7 +105,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   section: {
-    marginBottom: 24,
+    marginBottom: 10,
   },
   sectionTitle: {
     fontSize: 18,

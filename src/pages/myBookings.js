@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { BASE_URL } from "@env"; 
 import YourTripsWillAppearHere from "../assets/trips.png"; 
 import { useTheme } from "../ThemeContext/ThemeProvider";
+import PushNotification from 'react-native-push-notification';
 
 export default function BookingHistory({ navigation }) {
   const { isDarkMode } = useTheme();
@@ -13,6 +14,18 @@ export default function BookingHistory({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
+
+  // const sendBookingNotification = (type) => {
+  //   let message = type === 'made' ? "Booking confirmed!" : "Booking canceled!";
+    
+  //   PushNotification.localNotification({
+  //     title: "Booking Status",
+  //     message: message,
+  //     playSound: true,
+  //     soundName: 'default',
+  //     importance: 'high', // For Android
+  //   });
+  // };
 
   useEffect(() => {
     if (currentUser) {
@@ -38,6 +51,7 @@ export default function BookingHistory({ navigation }) {
       const response = await axios.delete(`${BASE_URL}/api/user/cancelBooking/${bookingId}`);
       if (response.status === 200) {
         Alert.alert("Success", "Booking cancelled successfully");
+        //sendBookingNotification('canceled');
         setBookings(bookings.filter((booking) => booking._id !== bookingId));
       }
     } catch (error) {

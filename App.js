@@ -228,6 +228,7 @@ import { ThemeProvider, useTheme } from "./src/ThemeContext/ThemeProvider";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Provider } from "react-redux";
+import PushNotification from "react-native-push-notification";
 
 export default function App() {
   return (
