@@ -66,7 +66,7 @@ export default function RegisterScreen({ navigation }) {
       contentContainerStyle={styles.scrollContainer}
       keyboardShouldPersistTaps="handled"
     >
-      <Text style={styles.LoginText}>Register</Text>
+      <Text style={styles.LoginText}>Welcome!</Text>
       <CustomInput
         value={username}
         onChange={setUserName}

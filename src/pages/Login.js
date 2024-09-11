@@ -58,7 +58,7 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome!</Text>
+      <Text style={styles.title}>Welcome Back!</Text>
       <CustomInput
         placeholder="Username"
         value={username}
