@@ -8,6 +8,7 @@ import backgroundImage from "../assets/train.png";
 import { formatDate } from "../utils/Utils";
 import { BASE_URL } from "@env";  
 import { useTheme } from "../ThemeContext/ThemeProvider";
+import Bot from "../components/Bot";
 
 export default function HomeScreen({ navigation }) {
   const { isDarkMode } = useTheme();
@@ -108,6 +109,7 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.searchButtonText}>Search</Text>
         </TouchableOpacity>
       </View>
+      {/* <Bot /> */}
     </ImageBackground>
   );
 }
