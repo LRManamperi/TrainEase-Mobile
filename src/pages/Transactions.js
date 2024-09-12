@@ -4,7 +4,7 @@ import axios from "axios";
 import moment from "moment";
 import { useSelector } from 'react-redux';
 import { BASE_URL } from "@env";
-import NoTransactions from "../assets/NoTransactions.png";
+import NoTransactionsImage from "../assets/NoTransactions.png";
 import { useTheme } from "../ThemeContext/ThemeProvider";
 
 export default function TransactionsScreen() {
@@ -62,7 +62,7 @@ export default function TransactionsScreen() {
       <View style={[styles.noTransactionsContainer, isDarkMode && styles.darkContainer]}>
         <Image source={NoTransactionsImage} style={styles.noTransactionsImage} />
         <Text style={[styles.noTransactionsText, isDarkMode && styles.darkText]}>
-          No transactions available.
+          No transactions available. Once you make a transaction, it will appear here.
         </Text>
       </View>
     );
@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   noTransactionsImage: {
-    width: 400,
-    height: 500,
+    width: 300,
+    height: 300,
     marginBottom: 20,
   },
   noTransactionsText: {
@@ -117,6 +117,8 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: "center",
     fontWeight: "bold",
+    marginLeft: 20,
+    marginRight: 20,
   },
   transactionCard: {
     backgroundColor: "#fff",
