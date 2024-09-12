@@ -132,6 +132,7 @@ import TripSummary from '../components/tripSummary';
 import { BASE_URL } from "@env";
 import { useSelector } from 'react-redux';
 import { useTheme } from '../ThemeContext/ThemeProvider';
+import LoadingSpinner from '../components/LoadingScreen';
 
 const SeatSelection = () => {
   const { isDarkMode } = useTheme();
@@ -234,7 +235,8 @@ const SeatSelection = () => {
   };
 
   if (!coaches.length) {
-    return <Text style={styles.loadingText}>Loading...</Text>;
+    return <LoadingSpinner/>;
+    // <Text style={styles.loadingText}>Loading...</Text>;
   }
 
   return (

@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from 'axios';
 import { BASE_URL } from "@env"; 
 import { useSelector } from "react-redux";  
-import Login from './Login';
 import { useTheme } from '../ThemeContext/ThemeProvider';
+import LoadingSpinner  from '../components/LoadingScreen';
 
 export default function Schedules() {
   const { isDarkMode } = useTheme();
@@ -15,6 +15,7 @@ export default function Schedules() {
   const [date, setDate] = useState('');
   const [schedules, setSchedules] = useState([]);
   const [stations, setStations] = useState([]);
+  const [loading, setLoading] = useState(true);
   
   const navigation = useNavigation();
   const route = useRoute();
@@ -33,6 +34,8 @@ export default function Schedules() {
   useEffect(() => {
     async function fetchStations() {
       try {
+        setLoading(true);
+        
         console.log('BASE_URL:', BASE_URL);
         const response = await axios.get(`${BASE_URL}/api/search/stations`);
         if (response.status === 200) {
@@ -46,6 +49,8 @@ export default function Schedules() {
       } catch (error) {
         console.error('Failed to fetch stations:', error);
         Alert.alert('Failed to load stations', error.message);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -65,6 +70,7 @@ export default function Schedules() {
     }
 
     try {
+      setLoading(true);  // Start loading when search starts
       
       console.log('BASE_URL:', BASE_URL);
       const response = await axios.get(`${BASE_URL}/api/search/schedules`, {
@@ -79,6 +85,8 @@ export default function Schedules() {
     } catch (error) {
       console.error('Failed to fetch schedules:', error);
       Alert.alert('Failed to load schedules', error.message);
+    } finally {
+      setLoading(false);  // End loading when search completes
     }
   };
 
@@ -124,18 +132,24 @@ export default function Schedules() {
 
   return (
     <SafeAreaView style={[styles.container, isDarkMode && styles.darkContainer]}>
-      <Text style={[styles.title ,isDarkMode && styles.darkText]}>
-        {from} <Icon name="arrow-forward" style={styles.arrowIcon} /> {to}
-      </Text>
-      {schedules.length === 0 ? (
-        <Text>No schedules available for the selected route.</Text>
+      {loading ? (
+        <LoadingSpinner />  // Render the spinner when loading
       ) : (
-        <FlatList
-          data={schedules}
-          keyExtractor={(item, index) => item._id || index.toString()}
-          renderItem={renderItem}
-          contentContainerStyle={styles.list}
-        />
+        <>
+          <Text style={[styles.title ,isDarkMode && styles.darkText]}>
+            {from} <Icon name="arrow-forward" style={styles.arrowIcon} /> {to}
+          </Text>
+          {schedules.length === 0 ? (
+            <Text>No schedules available for the selected route.</Text>
+          ) : (
+            <FlatList
+              data={schedules}
+              keyExtractor={(item, index) => item._id || index.toString()}
+              renderItem={renderItem}
+              contentContainerStyle={styles.list}
+            />
+          )}
+        </>
       )}
     </SafeAreaView>
   );

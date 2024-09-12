@@ -7,6 +7,7 @@ import { BASE_URL } from "@env";
 import YourTripsWillAppearHere from "../assets/trips.png"; 
 import { useTheme } from "../ThemeContext/ThemeProvider";
 import PushNotification from 'react-native-push-notification';
+import LoadingSpinner from "../components/LoadingScreen";
 
 export default function BookingHistory({ navigation }) {
   const { isDarkMode } = useTheme();
@@ -63,7 +64,10 @@ export default function BookingHistory({ navigation }) {
 
   const currentDate = moment();
 
-  if (loading) return <Text>Loading...</Text>;
+  if (loading) 
+    return 
+      <LoadingSpinner />;
+    <Text>Loading...</Text>;
   if (error) return <Text>Error loading booking history.</Text>;
 
   if (!currentUser) {
