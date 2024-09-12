@@ -41,11 +41,11 @@ function HomeStack() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: { backgroundColor: PRIMARY_COLOR },
-        headerTitleStyle: { fontSize: 22, fontWeight: "bold", color: "white" },
+        headerTitleStyle: { fontSize: 26, fontWeight: "bold", color: "white" },
         headerTintColor: "white",
       }}
     >
-      <Stack.Screen name="TrainEase" component={Home} />
+      <Stack.Screen name="TrainEase" component={Home}/>
       <Stack.Screen name="Schedules" component={Schedules} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="TrainDetails" component={TrainDetails} options = {{title : "Train Details"}} />

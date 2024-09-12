@@ -109,7 +109,7 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.searchButtonText}>Search</Text>
         </TouchableOpacity>
       </View>
-      {/* <Bot /> */}
+      <Bot />
     </ImageBackground>
   );
 }

@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#121212',
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
     flexDirection: 'row',
