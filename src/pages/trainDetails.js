@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, FlatList, ActivityIndicator, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import axios from "axios";
@@ -27,6 +27,7 @@ export default function TrainDetails({ route }) {
           console.error("Missing _id in one of the objects:", { scheduleId, fromStopId, toStopId });
           return;
         }
+
         console.log('BASE_URL:', BASE_URL);
         const response = await axios.get(`${BASE_URL}/api/search/train-details`, {
           params: { scheduleId, fromStopId, toStopId },
@@ -52,7 +53,13 @@ export default function TrainDetails({ route }) {
     return (toStop.price - fromStop.price) * priceFactor;
   };
 
+
   const handleClassClick = (classOption) => {
+    if (!classOption.available) {
+      console.log("Class not available");
+      Alert.alert("This class is not available", "Please select another class option.");
+      return;
+    }
     if (classOption && classOption.available && classOption._id) {
       setSelectedClass(classOption);
       navigation.navigate("SeatSelection", {
@@ -67,6 +74,7 @@ export default function TrainDetails({ route }) {
         date,
       });
     }
+    
   };
 
   const onScroll = (event) => {
@@ -132,7 +140,7 @@ export default function TrainDetails({ route }) {
                 isDarkMode && styles.classOptionDark,
               ]}
               onPress={() => handleClassClick(classOption)}
-              disabled={!classOption.available}
+              // disabled={!classOption.available}
             >
               <View style={styles.classHeader}>
                 <Text style={styles.className}>{classOption.name}</Text>
