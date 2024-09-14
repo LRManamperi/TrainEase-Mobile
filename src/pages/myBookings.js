@@ -19,6 +19,7 @@ export default function BookingHistory({ navigation }) {
 
   useFocusEffect(
     useCallback(() => {
+      
       if (currentUser) {
         async function fetchBookingHistory() {
           try {

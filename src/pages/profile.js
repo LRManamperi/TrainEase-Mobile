@@ -26,7 +26,6 @@ export default function Profile({ navigation }) {
         withCredentials: true,
       });
       // Dispatch logOutSuccess and navigate to the Login screen
-      
       dispatch(logOutSuccess(userData));
       navigation.replace("Profile");
       console.log("Logout Successful");

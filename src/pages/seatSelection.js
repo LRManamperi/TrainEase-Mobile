@@ -149,6 +149,7 @@ const SeatSelection = () => {
 
   const screenWidth = Dimensions.get('window').width - 32; // Full screen width minus padding
   const lineWidth = new Animated.Value(0);
+  
 
   useEffect(() => {
     const fetchSeatData = async () => {

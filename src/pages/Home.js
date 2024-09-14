@@ -23,6 +23,7 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     async function fetchStations() {
       try {
+
         console.log('BASE_URL:', BASE_URL);
         const response = await axios.get(`${BASE_URL}/api/search/stations`);
         setStations(response.data.map(station => ({ label: station.name })));
@@ -109,7 +110,7 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.searchButtonText}>Search</Text>
         </TouchableOpacity>
       </View>
-      <Bot />
+      {/* <Bot /> */}
     </ImageBackground>
   );
 }
