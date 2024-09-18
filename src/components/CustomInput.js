@@ -8,6 +8,7 @@ export default function CustomInput({
   secureTextEntry,
   label,
   isRequired,
+  testID
 }) {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
@@ -34,6 +35,7 @@ export default function CustomInput({
         secureTextEntry={secureTextEntry}
         outlineColor={error ? "red" : "#C9D7DD"}
         activeOutlineColor={error ? "red" : "lightblue"}
+        testID={testID}
       />
       {error && (
         <HelperText type="error" visible={error}>

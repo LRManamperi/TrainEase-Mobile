@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 const Seat = ({ seat, isBooked, isSelected, onSeatSelection }) => {
   return (
     <TouchableOpacity
+     testID="seat-button"
       style={[
         styles.button,
         {

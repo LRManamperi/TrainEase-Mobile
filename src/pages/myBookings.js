@@ -8,7 +8,7 @@ import { BASE_URL } from "@env";
 import YourTripsWillAppearHere from "../assets/trips.png"; 
 import { useTheme } from "../ThemeContext/ThemeProvider";
 import PushNotification from 'react-native-push-notification';
-import LoadingSpinner from "../components/LoadingScreen";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function BookingHistory({ navigation }) {
   const { isDarkMode } = useTheme();

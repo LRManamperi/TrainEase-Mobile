@@ -6,7 +6,7 @@ import axios from 'axios';
 import { BASE_URL } from "@env"; 
 import { useSelector } from "react-redux";  
 import { useTheme } from '../ThemeContext/ThemeProvider';
-import LoadingSpinner  from '../components/LoadingScreen';
+import LoadingSpinner  from '../components/LoadingSpinner';
 
 export default function Schedules() {
   const { isDarkMode } = useTheme();

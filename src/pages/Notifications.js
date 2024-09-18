@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, SafeAreaView } from 'react-native';
 import { useTheme } from '../ThemeContext/ThemeProvider';
-import LoadingSpinner from '../components/LoadingScreen'; 
+import LoadingSpinner from '../components/LoadingSpinner'; 
 
 export default function Notifications() {
   const { isDarkMode } = useTheme(); // Get theme context
