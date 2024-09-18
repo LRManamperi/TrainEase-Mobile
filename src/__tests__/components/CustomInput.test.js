@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import CustomInput from '../../components/CustomInput'; // Adjust the path as necessary
+import CustomInput from '../../components/CustomInput'; 
 
 describe('CustomInput Component', () => {
   it('renders correctly', () => {

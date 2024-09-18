@@ -45,25 +45,26 @@
     "redux": "^5.0.1"
   },
   "jest": {
-  "preset": "react-native",
-  "setupFilesAfterEnv": [
-    "@testing-library/jest-native/extend-expect"
-  ],
-  "transform": {
-    "^.+\\.[tj]sx?$": "babel-jest",
-    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect",
+      "<rootDir>/jest-setup.js"
+    ],
+    "transform": {
+      "^.+\\.[tj]sx?$": "babel-jest",
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|@react-native|@testing-library/react-native)/)"
+    ]
   },
-  "transformIgnorePatterns": [
-    "node_modules/(?!(react-native|@react-native|@testing-library/react-native)/)"
-  ]
-},
-
   "devDependencies": {
-    "@babel/core": "^7.20.0",
+    "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-react": "^7.24.7",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.7.2",
+    "axios-mock-adapter": "^2.0.0",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "react-native-svg-transformer": "^1.5.0",

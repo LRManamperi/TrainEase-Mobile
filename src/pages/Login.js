@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
-import { TextInput, Button } from "react-native-paper";
 import CustomInput from "../components/CustomInput";
 import ElevatedButton from "../components/ElevatedButton";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -35,7 +34,7 @@ export default function Login({ navigation }) {
 
     // Dispatch loginStart to set loading state
     dispatch(loginStart());
-    console.log(BASE_URL);
+    //console.log(BASE_URL);
     axios
       .post(`${BASE_URL}/api/user/login`, body, {
         headers: { "Content-Type": "application/json" },
@@ -60,11 +59,11 @@ export default function Login({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Welcome Back!</Text>
       <CustomInput
-        placeholder="Username"
         value={username}
         onChange={setUsername}
         isRequired={true}
         label="Username"
+        testID="username-input"
       />
       <CustomInput
         label="Password"
@@ -72,6 +71,8 @@ export default function Login({ navigation }) {
         onChange={setPassword}
         isRequired={true}
         secureTextEntry={true}
+        testID="password-input"
+
       />
       <ElevatedButton text="Login" handlerFunc={loginUser} loading={loading} />
       <View style={styles.footer}>

@@ -28,7 +28,7 @@ export default function TrainDetails({ route }) {
           return;
         }
 
-        console.log('BASE_URL:', BASE_URL);
+        //console.log('BASE_URL:', BASE_URL);
         const response = await axios.get(`${BASE_URL}/api/search/train-details`, {
           params: { scheduleId, fromStopId, toStopId },
         });
@@ -44,7 +44,7 @@ export default function TrainDetails({ route }) {
   if (!trainDetails) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#207497" />
+        <ActivityIndicator testID="loading-indicator" size="large" color="#207497" />
       </View>
     );
   }
