@@ -43,6 +43,7 @@ export default function SettingsScreen() {
               value={notificationsEnabled}
               onValueChange={handleNotificationToggle}
               color="lightblue"
+              testID="notification-switch"
             />
           )}
         />
@@ -54,6 +55,7 @@ export default function SettingsScreen() {
               value={locationEnabled}
               onValueChange={() => setLocationEnabled(!locationEnabled)}
               color="lightblue"
+              testID="location-switch"
             />
           )}
         />

@@ -20,7 +20,7 @@ const { isDarkMode, toggleTheme } = useTheme();
 //   };
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
+    <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]} testID="ScrollView">
       <View style={styles.header}>
         <MaterialIcons name="share" size={24} color="gray" style={styles.icon} />
         <Text style={styles.headerText}>Share Our App</Text>

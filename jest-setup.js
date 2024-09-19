@@ -17,3 +17,23 @@ beforeEach(() => {
   });
   // jest.setup.js
 jest.mock('react-native-vector-icons/MaterialIcons', () => 'Icon');
+jest.mock('@expo/vector-icons', () => {
+  const React = require('react');
+  return {
+    MaterialIcons: 'MaterialIcons', // Mock MaterialIcons component
+  };
+});
+
+import 'react-native-gesture-handler/jestSetup';
+
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+  useDispatch: jest.fn(() => jest.fn()),
+}));
+
+// Optionally, if you're using @react-navigation/native in your tests, you can add this:
+
+
+// Add other global mocks here, such as axios or any other libraries you use.
+
+
