@@ -70,6 +70,7 @@ export default function ReportIssuesScreen() {
         keyboardType="email-address"
         style={styles.input}
         autoCapitalize="none"
+        testID="email-input"
       />
 
       <Text style={[styles.label, isDarkMode && styles.darkText]}>Describe the Issue</Text>
@@ -82,8 +83,9 @@ export default function ReportIssuesScreen() {
         numberOfLines={5}
         style={[styles.input, styles.issueInput]}
         maxLength={500} // Limit the character count to 500
+        testID="issue-input"
       />
-      <Text style={styles.characterCount}>{issue.length}/500</Text>
+      <Text testID="character-count" style={styles.characterCount}>{issue.length}/500</Text>
 
       {isSubmitting ? (
         <ActivityIndicator size="large" color="#CD3F3E" />
@@ -93,6 +95,7 @@ export default function ReportIssuesScreen() {
           onPress={handleSubmit}
           disabled={isSubmitting}
           style={styles.submitButton}
+          testID="submit-button"
         >
           <Text style = {styles.buttonText}>Submit Issue</Text>
         </Button>

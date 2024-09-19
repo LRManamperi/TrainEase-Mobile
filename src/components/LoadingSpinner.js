@@ -3,7 +3,7 @@ import { View, ActivityIndicator, StyleSheet } from 'react-native';
 
 export default function LoadingSpinner() {
   return (
-    <View style={styles.container}testID="loading-spinner">
+    <View style={styles.container} testID="loading-spinner">
       <ActivityIndicator size="large" color="#1E2A38" />
     </View>
   );

@@ -7,7 +7,7 @@ import { useFocusEffect } from '@react-navigation/native'; // Import the hook
 import { BASE_URL } from "@env"; 
 import YourTripsWillAppearHere from "../assets/trips.png"; 
 import { useTheme } from "../ThemeContext/ThemeProvider";
-import PushNotification from 'react-native-push-notification';
+//import PushNotification from 'react-native-push-notification';
 import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function BookingHistory({ navigation }) {
@@ -62,7 +62,7 @@ export default function BookingHistory({ navigation }) {
     return (
       <View style={[styles.noBookingsContainer, isDarkMode && styles.darkContainer]}>
         <Image source={YourTripsWillAppearHere} style={styles.noBookingsImage} />
-        <Text style={styles.noBookingsText}>Please log in to see your booking history.</Text>
+        <Text testID="login-message" style={styles.noBookingsText}>Please log in to see your booking history.</Text>
       </View>
     );
   }
