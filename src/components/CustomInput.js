@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import { TextInput, HelperText } from "react-native-paper";
 import React, { useState } from "react";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function CustomInput({
   placeholder,
@@ -11,6 +12,7 @@ export default function CustomInput({
 }) {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
+  const [isSecure, setIsSecure] = useState(secureTextEntry);
 
   const handleChange = (text) => {
     setValue(text);
@@ -31,7 +33,18 @@ export default function CustomInput({
         selectionColor="black"
         onChangeText={handleChange}
         mode="outlined"
-        secureTextEntry={secureTextEntry}
+        secureTextEntry={isSecure}
+        right={
+          secureTextEntry ? (
+            <TextInput.Icon
+              name={isSecure ? "eye-off" : "eye"}  
+              onPress={() => setIsSecure(!isSecure)}
+              color="black"
+              size={20}
+              
+            />
+          ) : null
+        }
         outlineColor={error ? "red" : "#C9D7DD"}
         activeOutlineColor={error ? "red" : "lightblue"}
       />
