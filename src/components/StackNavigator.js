@@ -15,7 +15,7 @@ import Home from "../pages/Home";
 import ContactUs from "../pages/contactUs";
 import ProfileScreen from "../pages/profile";
 import BookingsScreen from "../pages/myBookings";
-import SeatSelection from "../pages/seatSelection";
+import SeatSelection from "../pages/SeatSelection";
 import TrainDetails from "../pages/trainDetails";
 import Schedules from "../pages/schedules";
 import Checkout from "../pages/Checkout";
