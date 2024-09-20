@@ -5,20 +5,26 @@ import { useNavigation } from '@react-navigation/native';
 import Login from './Login';
 import { useTheme } from '../ThemeContext/ThemeProvider';
 import ManagePaymentMethods from './ManagePaymentMethods';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 export default function ContactUs() {
   const { isDarkMode } = useTheme();
   const navigation = useNavigation();
+  const {currentUser} = useSelector((state) => state.user);
 
   return (
     <ScrollView style={[styles.container, isDarkMode && styles.darkContainer]}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Need help with recent booking?</Text>
-        <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.loginButtonText}>Log in Now</Text>
-        </TouchableOpacity>
+        {currentUser? (
+          <Text style={styles.welcomeText}>Hi, {currentUser.username}</Text>
+        ) : (
+          <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.loginButtonText}>Log in Now</Text>
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.separator} />
       <Text style={[styles.quickGuidesHeader, isDarkMode && styles.darkText]}>Quick Guides</Text>
@@ -126,6 +132,12 @@ const styles = StyleSheet.create({
   chevronIconDark: {
     color: 'white',
   },
+  welcomeText: {
+    color: '#fff',
+    fontSize: 25,
+    paddingVertical: 10,
+    fontWeight: 'bold'
+  }
 });
 
 
