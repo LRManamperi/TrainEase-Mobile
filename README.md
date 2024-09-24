@@ -6,7 +6,6 @@
 - **Train Search & Booking**: Easily search for and book train tickets.
 - **Wit.ai Chatbot**: Chatbot support for conversational booking and inquiries.
 - **Dark Mode**: Available for a comfortable user experience.
-- **Location Services**: Location-based train suggestions.
 - **Push Notifications**: Receive updates about bookings, cancellations, and reminders.
 - **PayPal Integration**: Secure online payments via PayPal.
 
