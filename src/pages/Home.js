@@ -18,7 +18,6 @@ export default function HomeScreen({ navigation }) {
   const [show, setShow] = useState(false);
   const [stations, setStations] = useState([]);
 
-  
 
   useEffect(() => {
     async function fetchStations() {
@@ -105,12 +104,11 @@ export default function HomeScreen({ navigation }) {
             onChange={onChange}
           />
         )}
-
         <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
           <Text style={styles.searchButtonText}>Search</Text>
         </TouchableOpacity>
       </View>
-      {/* <Bot /> */}
+      <Bot /> 
     </ImageBackground>
   );
 }

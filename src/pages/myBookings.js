@@ -7,11 +7,12 @@ import { useFocusEffect } from '@react-navigation/native'; // Import the hook
 import { BASE_URL } from "@env"; 
 import YourTripsWillAppearHere from "../assets/trips.png"; 
 import { useTheme } from "../ThemeContext/ThemeProvider";
-import PushNotification from 'react-native-push-notification';
+import * as Notifications from 'expo-notifications';
 import LoadingSpinner from "../components/LoadingScreen";
 
 export default function BookingHistory({ navigation }) {
   const { isDarkMode } = useTheme();
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,7 +20,6 @@ export default function BookingHistory({ navigation }) {
 
   useFocusEffect(
     useCallback(() => {
-      
       if (currentUser) {
         async function fetchBookingHistory() {
           try {
@@ -46,6 +46,19 @@ export default function BookingHistory({ navigation }) {
       if (response.status === 200) {
         Alert.alert("Success", "Booking cancelled successfully");
         setBookings(bookings.filter((booking) => booking._id !== bookingId));
+        
+        // Check if notifications are enabled before scheduling a notification
+        if (notificationsEnabled) {
+          await Notifications.scheduleNotificationAsync({
+            content: {
+              title: "Booking Status",
+              body: "Booking cancelled!",
+            },
+            trigger: {
+              seconds: 1,
+            },
+          });
+        }
       }
     } catch (error) {
       console.error("Cancel Booking Error:", error.response || error);

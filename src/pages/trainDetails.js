@@ -60,6 +60,9 @@ export default function TrainDetails({ route }) {
       Alert.alert("This class is not available", "Please select another class option.");
       return;
     }
+    
+
+    
     if (classOption && classOption.available && classOption._id) {
       setSelectedClass(classOption);
       navigation.navigate("SeatSelection", {

@@ -14,7 +14,8 @@ import axios from 'axios';
 import { BASE_URL } from "@env"; 
 import { useRoute } from '@react-navigation/native';
 import { useTheme } from '../ThemeContext/ThemeProvider';
-import PushNotification from 'react-native-push-notification';
+import * as Notifications from 'expo-notifications';
+
 
 export default function Checkout() {
   const { isDarkMode } = useTheme();
@@ -50,6 +51,8 @@ export default function Checkout() {
       return;
     }
 
+
+    
     try {
       
       console.log('BASE_URL:', BASE_URL);
@@ -58,6 +61,18 @@ export default function Checkout() {
       setIsSuccess(true);
       Alert.alert('Success', 'Your reservation has been confirmed!');
       //sendBookingNotification('made');
+      
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Booking Status",
+          body: "Booking confirmed!",
+        },
+        trigger: {
+          seconds: 1,
+        },
+        trigger: null,
+      });
+
     } catch (error) {
       console.error("Failed to confirm booking:", error);
       Alert.alert("Failed to confirm booking, please try again."); // Inform the user about the error

@@ -36,6 +36,8 @@ export default function Login({ navigation }) {
     // Dispatch loginStart to set loading state
     dispatch(loginStart());
     console.log(BASE_URL);
+
+    
     axios
       .post(`${BASE_URL}/api/user/login`, body, {
         headers: { "Content-Type": "application/json" },
@@ -66,6 +68,7 @@ export default function Login({ navigation }) {
         isRequired={true}
         label="Username"
       />
+      
       <CustomInput
         label="Password"
         value={password}
