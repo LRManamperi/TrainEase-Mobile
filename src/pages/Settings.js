@@ -4,12 +4,13 @@ import { Switch, List, Divider } from 'react-native-paper';
 import { useTheme } from '../ThemeContext/ThemeProvider';
 import { useNavigation } from '@react-navigation/native';
 import * as Notifications from 'expo-notifications';
+import * as Location from 'expo-location'; // Import expo-location
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SettingsScreen() {
   const { isDarkMode, toggleTheme } = useTheme();
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [locationEnabled, setLocationEnabled] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [locationEnabled, setLocationEnabled] = useState(true);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -21,7 +22,17 @@ export default function SettingsScreen() {
       }
     };
 
+    // Load saved location settings from AsyncStorage
+    const loadLocationSettings = async () => {
+      const savedLocationStatus = await AsyncStorage.getItem('locationEnabled');
+      if (savedLocationStatus !== null) {
+        setLocationEnabled(JSON.parse(savedLocationStatus));
+      }
+    };
+
+
     loadNotificationSettings();
+    loadLocationSettings();
   }, []);
 
   const handleNotificationToggle = async (value) => {
@@ -44,6 +55,26 @@ export default function SettingsScreen() {
       Alert.alert('Notifications enabled', 'You will receive notifications.');
     } else {
       Alert.alert('Notifications disabled', 'You will no longer receive notifications.');
+    }
+  };
+
+  const handleLocationToggle = async (value) => {
+    setLocationEnabled(value);
+
+    // Save the preference in AsyncStorage
+    await AsyncStorage.setItem('locationEnabled', JSON.stringify(value));
+
+    if (value) {
+      // Request location permissions if enabling location
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission not granted', 'You will not be able to access your location.');
+        setLocationEnabled(false);
+        return;
+      }
+      Alert.alert('Location access enabled', 'You can now access your location.');
+    } else {
+      Alert.alert('Location access disabled', 'You will no longer have access to your location.');
     }
   };
 
@@ -83,7 +114,7 @@ export default function SettingsScreen() {
           right={() => (
             <Switch
               value={locationEnabled}
-              onValueChange={() => setLocationEnabled(!locationEnabled)}
+              onValueChange={handleLocationToggle} // Call the handleLocationToggle function
               color="lightblue"
             />
           )}
