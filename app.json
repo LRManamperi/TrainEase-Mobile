@@ -22,12 +22,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "3ff97b5b-5f2e-42a8-8616-b62af1d215f7"
-      }
-    },
-    "owner": "lakshanirasa"
+    }//,
+    // "extra": {
+    //   "eas": {
+    //     "projectId": "3ff97b5b-5f2e-42a8-8616-b62af1d215f7"
+    //   }
+    // // },
+    // "owner": "lakshanirasa"
   }
 }
