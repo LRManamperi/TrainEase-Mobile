@@ -8,7 +8,7 @@ import axios from 'axios';
 import { BASE_URL } from '@env';
 import { useTheme } from '../ThemeContext/ThemeProvider';
 import SLRailwayAd from "../assets/sri_lanka_railway_ad.jpg";
-import SLRailwayAd2 from "../assets/SriLankaTrainColombo.png";
+import SLRailwayAd2 from "../assets/colombo.png";
 
 export default function Profile({ navigation }) {
   const { isDarkMode } = useTheme();
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   },
   adImage: {
     width: 340,
-    height: 150,
+    height: 200,
     borderRadius: 10,
   },
   adText: {
