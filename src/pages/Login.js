@@ -83,6 +83,11 @@ export default function Login({ navigation }) {
           <Text style={styles.link}>Register here</Text>
         </TouchableOpacity>
       </View>
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
+          <Text style={styles.link}>Forgot Password?</Text>
+        </TouchableOpacity>
+      </View>
       {/* Ensure error message is inside a Text component */}
       {error && <Text style={styles.errorText}>{error}</Text>}
     </View>

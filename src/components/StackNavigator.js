@@ -30,6 +30,7 @@ import TransactionsScreen from "../pages/Transactions";
 import ManagePaymentMethods from "../pages/ManagePaymentMethods";
 import PreBookingQueries from "../pages/PreBookingQueries";
 import Notifications from "../pages/Notifications";
+import ForgotPassword from "../pages/ForgotPassword";
 
 
 
@@ -78,6 +79,7 @@ function ProfileStack() {
       <Stack.Screen name="ChangePassword" component={AccountSettingsScreen} options = {{title:"Change Password"}} />
       <Stack.Screen name="Transactions" component={TransactionsScreen} />
       <Stack.Screen name="Notifications" component={Notifications} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
     </Stack.Navigator>
   );

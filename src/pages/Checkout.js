@@ -56,6 +56,7 @@ export default function Checkout() {
     try {
       
       console.log('BASE_URL:', BASE_URL);
+      console.log('Booking ID:', bookingId);
       const response = await axios.get(`${BASE_URL}/api/booking/confirmBooking/${bookingId}`);
       console.log("Booking confirmation response:", response.data);
       setIsSuccess(true);
