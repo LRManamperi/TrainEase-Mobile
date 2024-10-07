@@ -4,10 +4,10 @@
     "slug": "TrainEase-MobileApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.jpg",
+    "icon": "./assets/SUBWAY_011.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icon.jpg",
+      "image": "./assets/SUBWAY_011.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
