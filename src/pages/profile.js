@@ -83,7 +83,6 @@ export default function Profile({ navigation }) {
       </View>
      
 
-
       {/* Show booking options only if the user is logged in */}
       {currentUser && (
         <>

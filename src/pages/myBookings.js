@@ -18,6 +18,8 @@ export default function BookingHistory({ navigation }) {
   const [error, setError] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
 
+  
+
   useFocusEffect(
     useCallback(() => {
       if (currentUser) {
@@ -65,7 +67,6 @@ export default function BookingHistory({ navigation }) {
       Alert.alert("Error", "Failed to cancel booking. Please try again.");
     }
   };
-
   const currentDate = moment(); // Initialize current date
 
   if (loading) return <LoadingSpinner />;

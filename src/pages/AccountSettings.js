@@ -55,6 +55,7 @@ const AccountSettings = ({ navigation }) => {
       Alert.alert("Error", "Failed to update profile. Please try again.");
     }
   };
+  
 
   return (
     <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>

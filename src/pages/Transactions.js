@@ -13,6 +13,7 @@ export default function TransactionsScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
+  
 
   useEffect(() => {
     if (currentUser) {

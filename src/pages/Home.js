@@ -4,6 +4,7 @@ import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
+import * as Location from 'expo-location'; 
 import backgroundImage from "../assets/train.png";
 import { formatDate } from "../utils/Utils";
 import { BASE_URL } from "@env";  
@@ -14,29 +15,62 @@ export default function HomeScreen({ navigation }) {
   const { isDarkMode } = useTheme();
   const [selectedValue1, setSelectedValue1] = useState("");
   const [selectedValue2, setSelectedValue2] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");  
+  const [selectedDate, setSelectedDate] = useState(null);  // Initialize as null
   const [show, setShow] = useState(false);
   const [stations, setStations] = useState([]);
-
 
   useEffect(() => {
     async function fetchStations() {
       try {
-
         console.log('BASE_URL:', BASE_URL);
         const response = await axios.get(`${BASE_URL}/api/search/stations`);
         setStations(response.data.map(station => ({ label: station.name })));
       } catch (error) {
-        console.error("Error fetching stations:", error);  // Log the full error
+        console.error("Error fetching stations:", error); 
         Alert.alert("Error", "Failed to fetch stations");
       }
     }
-    fetchStations();
-  }, []);  // Add an empty dependency array to fetch stations only once
-  
+
+
+    async function getCurrentLocation() {
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert('Permission to access location was denied');
+          return;
+        }
+        const location = await Location.getCurrentPositionAsync({});
+        const [place] = await Location.reverseGeocodeAsync({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
+        
+
+        const cityName = place.city;
+        const matchedStation = stations.find(station => station.label.toLowerCase().includes(cityName.toLowerCase()));
+
+
+        if (matchedStation) {
+          setSelectedValue1(matchedStation.label);
+        } else {
+          console.log('City not matched with stations');
+        }
+      } catch (error) {
+        console.error("Error getting location or city:", error);
+        Alert.alert("Error", "Failed to get current location");
+      }
+    }
+
+    fetchStations().then(() => {
+      getCurrentLocation(); 
+    });
+  }, [BASE_URL]);  // Adjusted dependency array
+
   const onChange = (event, date) => {
     setShow(false);
-    setSelectedDate(date || selectedDate);
+    if (date) {
+      setSelectedDate(date);
+    }
   };
 
   const showDatepicker = () => {
@@ -99,7 +133,9 @@ export default function HomeScreen({ navigation }) {
           <DateTimePicker
             testID="dateTimePicker"
             value={selectedDate || new Date()}
-            minimumDate={new Date()}
+            mode="date"  // Explicitly set mode to 'date'
+            minimumDate={new Date()}  // Keeps booking for today and future
+            maximumDate={new Date(2100, 12, 31)}  // Optional: Set a reasonable maximum date
             is24Hour={true}
             onChange={onChange}
           />

@@ -39,6 +39,7 @@ export default function RegisterScreen({ navigation }) {
     };
   
     dispatch(registerStart());
+    
   
     axios
       .post(`${BASE_URL}/api/user/register`, body, {
