@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ThemeProvider } from './src/ThemeContext/ThemeProvider';
 import StackNavigator from './src/components/StackNavigator';
 import store from './src/redux/store';
 import * as Notifications from 'expo-notifications';
-import * as Location from 'expo-location'; // Import Location
+import * as Location from 'expo-location'; 
 import { Alert } from 'react-native';
 import Constants from 'expo-constants';
 import { NotificationProvider } from './src/NotificationContext/NotificationContext';
 
 export default function App() {
+
+  const [detectedCity, setDetectedCity] = useState(null);
+
   useEffect(() => {
     registerForPushNotificationsAsync();
     requestLocationPermission(); // Request location permission
