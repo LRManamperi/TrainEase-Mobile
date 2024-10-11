@@ -97,7 +97,7 @@ export default function Schedules() {
         'You need to be logged in to view train details. Would you like to login?',
         [
           { text: 'Cancel', style: 'cancel' },
-          { text: 'Login', onPress: () => navigation.navigate('Login') },  
+          { text: 'Login', onPress: () => navigation.navigate('Login', { redirectTo: "Schedules" }) },  
         ]
       );
       return;

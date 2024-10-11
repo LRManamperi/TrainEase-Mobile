@@ -8,6 +8,7 @@ import axios from "axios";
 import { BASE_URL } from "@env"; 
 import { useDispatch, useSelector } from "react-redux";
 import { loginStart, loginSuccess, loginFailure, clearError } from "../redux/userSlice";
+import { useRoute } from "@react-navigation/native";
 
 
 export default function Login({ navigation }) {
@@ -15,6 +16,7 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { error, loading, currentUser } = useSelector((state) => state.user);
+  const route = useRoute();
 
   // Clear error message when component is mounted
   useEffect(() => {
@@ -48,8 +50,14 @@ export default function Login({ navigation }) {
         dispatch(loginSuccess(response.data));
         console.log("Login Successful");
         Alert.alert("Login Successful", "You have successfully logged in.");
-        navigation.navigate("Home");
-      })
+        // navigation.navigate("Home");
+        if (route.params?.redirectTo) {
+          navigation.navigate(route.params.redirectTo); // Navigate to the previous screen
+          console.log("Redirecting to:", route.params.redirectTo);
+        } else {
+          navigation.navigate("Home"); // Default to Home screen if no previous screen
+        }
+  })
       .catch((error) => {
         console.error("Login failed:", error);
         // Dispatch loginFailure and handle the error state
