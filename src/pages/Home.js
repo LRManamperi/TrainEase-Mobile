@@ -127,7 +127,7 @@ export default function HomeScreen({ navigation }) {
 
   const handleSearch = () => {
     if (!selectedValue1 || !selectedValue2 || !selectedDate) {
-      Alert.alert("Error", "Please fill all fields");
+      Alert.alert("Hold on a moment!", "It looks like some fields are still empty. Please take a moment to fill them in so we can help you better.");
       return;
     }
 

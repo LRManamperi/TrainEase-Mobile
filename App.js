@@ -10,7 +10,7 @@ import { Alert, View, Text, StyleSheet, Animated, Dimensions } from 'react-nativ
 import Constants from 'expo-constants';
 import { NotificationProvider } from './src/NotificationContext/NotificationContext';
 import NetInfo from '@react-native-community/netinfo';  // NetInfo to detect connection
-import { trackUserInsights } from 'expo-insights';
+import { trackUserInsights, Insight } from 'expo-insights';
 
 
 export default function App() {
