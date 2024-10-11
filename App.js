@@ -10,6 +10,8 @@ import { Alert, View, Text, StyleSheet, Animated, Dimensions } from 'react-nativ
 import Constants from 'expo-constants';
 import { NotificationProvider } from './src/NotificationContext/NotificationContext';
 import NetInfo from '@react-native-community/netinfo';  // NetInfo to detect connection
+import { trackUserInsights } from 'expo-insights';
+
 
 export default function App() {
 
@@ -125,6 +127,10 @@ export default function App() {
     }
   };
 
+  function onScreenNavigate(screenName) {
+    trackUserInsights('ScreenNavigated', { screen: screenName, timestamp: new Date().toISOString() });
+  }
+
   return (
     <Provider store={store}>
       <ThemeProvider>
@@ -135,7 +141,7 @@ export default function App() {
             <Animated.View style={[styles.banner, { height: bannerHeight }]}>
               <Text style={styles.bannerText}>No Internet Connection</Text>
             </Animated.View>
-
+              
             <StackNavigator />
           </GestureHandlerRootView>
         </NotificationProvider>
