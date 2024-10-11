@@ -6,13 +6,17 @@ import StackNavigator from './src/components/StackNavigator';
 import store from './src/redux/store';
 import * as Notifications from 'expo-notifications';
 import * as Location from 'expo-location'; 
-import { Alert } from 'react-native';
+import { Alert, View, Text, StyleSheet, Animated, Dimensions } from 'react-native';
 import Constants from 'expo-constants';
 import { NotificationProvider } from './src/NotificationContext/NotificationContext';
+import NetInfo from '@react-native-community/netinfo';  // NetInfo to detect connection
 
 export default function App() {
 
   const [detectedCity, setDetectedCity] = useState(null);
+  const [isConnected, setIsConnected] = useState(true);  // Track connection status
+  const [bannerHeight] = useState(new Animated.Value(0)); // Initial height of banner
+  const [fadeAnim] = useState(new Animated.Value(0));
 
   useEffect(() => {
     registerForPushNotificationsAsync();
@@ -26,6 +30,15 @@ export default function App() {
       }),
     });
 
+    // Subscribe to internet connection status
+    const unsubscribe = NetInfo.addEventListener(state => {
+      if (state.isConnected) {
+        handleConnectionRestored();
+      } else {
+        handleConnectionLost();
+      }
+    });
+
     const subscription = Notifications.addNotificationReceivedListener(notification => {
       console.log('Notification received:', notification);
     });
@@ -35,10 +48,39 @@ export default function App() {
     });
 
     return () => {
+      unsubscribe(); // Unsubscribe from NetInfo on cleanup
       subscription.remove();
       responseSubscription.remove();
     };
   }, []);
+
+  // Function to handle connection lost
+  const handleConnectionLost = () => {
+    setIsConnected(false);
+    Animated.timing(bannerHeight, {
+      toValue: 50,  // Height of banner when shown
+      duration: 300,
+      useNativeDriver: false
+    }).start();
+  };
+
+  // Function to handle connection restored
+  const handleConnectionRestored = () => {
+    setIsConnected(true);
+    Animated.timing(bannerHeight, {
+      toValue: 0,  // Height of banner when hidden
+      duration: 300,
+      useNativeDriver: false
+    }).start();
+  };
+
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true, // Use native driver for performance
+    }).start();
+  };
 
   const registerForPushNotificationsAsync = async () => {
     // Request permissions for notifications
@@ -70,18 +112,17 @@ export default function App() {
     console.log('Current Location:', location);
 
     // Reverse geocode to get city name
-  const geocodedLocation = await Location.reverseGeocodeAsync(location.coords);
-  console.log('Geocoded Location:', geocodedLocation);
+    const geocodedLocation = await Location.reverseGeocodeAsync(location.coords);
+    console.log('Geocoded Location:', geocodedLocation);
 
-  // Extract city from geocoded location
-  if (geocodedLocation.length > 0) {
-    const { city, region } = geocodedLocation[0]; // Get the first result
-    const cityName = city || region; // Fallback to region if city is not available
-    Alert.alert('Welcome to TrainEase:', `You're all set! It looks like you're in ${cityName}. Let's get you on the right train to your destination! 🚆`);
-  } else {
-    Alert.alert('City not found', 'Oops! We couldn’t determine your location. Please make sure your location services are enabled and try again.');
-  }
-  
+    // Extract city from geocoded location
+    if (geocodedLocation.length > 0) {
+      const { city, region } = geocodedLocation[0]; // Get the first result
+      const cityName = city || region; // Fallback to region if city is not available
+      Alert.alert('Welcome to TrainEase:', `You're all set! It looks like you're in ${cityName}. Let's get you on the right train to your destination! 🚆`);
+    } else {
+      Alert.alert('City not found', 'Oops! We couldn’t determine your location. Please make sure your location services are enabled and try again.');
+    }
   };
 
   return (
@@ -89,6 +130,12 @@ export default function App() {
       <ThemeProvider>
         <NotificationProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
+            
+            {/* Animated Banner for Internet Status */}
+            <Animated.View style={[styles.banner, { height: bannerHeight }]}>
+              <Text style={styles.bannerText}>No Internet Connection</Text>
+            </Animated.View>
+
             <StackNavigator />
           </GestureHandlerRootView>
         </NotificationProvider>
@@ -96,3 +143,20 @@ export default function App() {
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  banner: {
+    backgroundColor: '#ff4d4f',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 0,
+    width: Dimensions.get('window').width,
+    zIndex: 1,
+  },
+  bannerText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
