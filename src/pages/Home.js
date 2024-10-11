@@ -18,22 +18,72 @@ export default function HomeScreen({ navigation }) {
   const [selectedDate, setSelectedDate] = useState(null);  // Initialize as null
   const [show, setShow] = useState(false);
   const [stations, setStations] = useState([]);
-  
+
+
+  // useEffect(() => {
+  //   async function fetchStations() {
+  //     try {
+
+  //       console.log('BASE_URL:', BASE_URL);
+  //       const response = await axios.get(`${BASE_URL}/api/search/stations`);
+  //       setStations(response.data.map(station => ({ label: station.name })));
+  //     } catch (error) {
+  //       console.error("Error fetching stations:", error); 
+  //       Alert.alert("Error", "Failed to fetch stations");
+  //     }
+  //   }
+
+  //   async function getCurrentLocation() {
+  //     try {
+  //       const { status } = await Location.requestForegroundPermissionsAsync();
+  //       if (status !== 'granted') {
+  //         Alert.alert('Permission to access location was denied');
+  //         return;
+  //       }
+  //       const location = await Location.getCurrentPositionAsync({});
+  //       const [place] = await Location.reverseGeocodeAsync({
+  //         latitude: location.coords.latitude,
+  //         longitude: location.coords.longitude,
+  //       });
+        
+
+  //       const cityName = place.city;
+  //       const matchedStation = stations.find(station => station.label.toLowerCase().includes(cityName.toLowerCase()));
+
+
+  //       if (matchedStation) {
+  //         setSelectedValue1(matchedStation.label);
+  //       } else {
+  //         console.log('City not matched with stations');
+  //       }
+  //     } catch (error) {
+  //       console.error("Error getting location or city:", error);
+  //       Alert.alert("Error", "Failed to get current location");
+  //     }
+  //   }
+
+  //   fetchStations().then(() => {
+  //     getCurrentLocation(); 
+  //   });
+  // }, [BASE_URL]);  // Adjusted dependency array
 
   useEffect(() => {
     async function fetchStations() {
       try {
-
         console.log('BASE_URL:', BASE_URL);
         const response = await axios.get(`${BASE_URL}/api/search/stations`);
-        setStations(response.data.map(station => ({ label: station.name })));
+        const fetchedStations = response.data.map(station => ({ label: station.name }));
+        setStations(fetchedStations);
+  
+        // After stations are fetched, call getCurrentLocation
+        await getCurrentLocation(fetchedStations); 
       } catch (error) {
-        console.error("Error fetching stations:", error); 
+        console.error("Error fetching stations:", error);
         Alert.alert("Error", "Failed to fetch stations");
       }
     }
-
-    async function getCurrentLocation() {
+  
+    async function getCurrentLocation(fetchedStations) {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
@@ -45,14 +95,12 @@ export default function HomeScreen({ navigation }) {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
         });
-        
-
+  
         const cityName = place.city;
-        const matchedStation = stations.find(station => station.label.toLowerCase().includes(cityName.toLowerCase()));
-
-
+        const matchedStation = fetchedStations.find(station => station.label.toLowerCase().includes(cityName.toLowerCase()));
+  
         if (matchedStation) {
-          setSelectedValue1(matchedStation.label);
+          setSelectedValue1(matchedStation.label); // Update "From" station based on location
         } else {
           console.log('City not matched with stations');
         }
@@ -61,11 +109,10 @@ export default function HomeScreen({ navigation }) {
         Alert.alert("Error", "Failed to get current location");
       }
     }
-
-    fetchStations().then(() => {
-      getCurrentLocation(); 
-    });
+  
+    fetchStations();  // Fetch stations first
   }, [BASE_URL]);  // Adjusted dependency array
+  
 
   const onChange = (event, date) => {
     setShow(false);
