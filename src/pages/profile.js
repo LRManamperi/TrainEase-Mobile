@@ -27,7 +27,7 @@ export default function Profile({ navigation }) {
       });
       // Dispatch logOutSuccess and navigate to the Login screen
       dispatch(logOutSuccess(userData));
-      navigation.replace("Profile");
+      navigation.navigate("Profile");
       console.log("Logout Successful");
     } catch (error) {
       console.error("Logout failed:", error);
