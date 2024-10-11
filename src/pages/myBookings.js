@@ -69,6 +69,7 @@ export default function BookingHistory({ navigation }) {
   };
   const currentDate = moment(); // Initialize current date
 
+
   if (loading) return <LoadingSpinner />;
   if (error) return <Text>Error loading booking history.</Text>;
 

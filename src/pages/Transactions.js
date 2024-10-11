@@ -14,7 +14,7 @@ export default function TransactionsScreen() {
   const [error, setError] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   
-
+  
   useEffect(() => {
     if (currentUser) {
       async function fetchTransactions() {

@@ -51,14 +51,16 @@ export default function Checkout() {
       return;
     }
     
+    
     try {
       console.log('BASE_URL:', BASE_URL);
       console.log('Booking ID:', bookingId);
-      const response = await axios.get(`${BASE_URL}/api/booking/confirmBooking/${bookingId}`);
+      const response = await axios.post(`${BASE_URL}/api/booking/confirmBooking/${bookingId}`);
       console.log("Booking confirmation response:", response.data);
       setIsSuccess(true);
       Alert.alert('Success', 'Your reservation has been confirmed!');
       //sendBookingNotification('made');
+      
       
       await Notifications.scheduleNotificationAsync({
         content: {
@@ -83,7 +85,7 @@ export default function Checkout() {
     const formattedCardNumber = input
       .replace(/\D/g, '') // Remove non-numeric characters
       .replace(/(\d{4})(?=\d)/g, '$1 '); // Add a space after every 4 digits
-    setCardNumber(formattedCardNumber.slice(0, 19)); // Limit to 19 characters (16 digits + 3 spaces)
+    setCardNumber(formattedCardNumber.slice(0, 20)); // Limit to 19 characters (16 digits + 3 spaces)
   };
   
 
@@ -143,7 +145,7 @@ export default function Checkout() {
           keyboardType="numeric"
           style={styles.input}
           theme={{ colors: { primary: 'lightblue' } }}
-          maxLength={16} // Limit to 16 digits
+          maxLength={19} // Limit to 16 digits
         />
         <TextInput
           mode="outlined"

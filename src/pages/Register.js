@@ -37,10 +37,9 @@ export default function RegisterScreen({ navigation }) {
       phone,
       password,
     };
-  
+
     dispatch(registerStart());
     
-  
     axios
       .post(`${BASE_URL}/api/user/register`, body, {
         headers: {

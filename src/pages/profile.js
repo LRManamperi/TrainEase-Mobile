@@ -16,6 +16,7 @@ export default function Profile({ navigation }) {
   const { currentUser } = useSelector((state) => state.user);
   console.log(currentUser);
   const userData = currentUser;
+  
 
   const handleLogout = async () => {
     dispatch(logOutStart());
@@ -81,7 +82,6 @@ export default function Profile({ navigation }) {
         
       </View>
      
-
       {/* Show booking options only if the user is logged in */}
       {currentUser && (
         <>

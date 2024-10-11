@@ -76,6 +76,7 @@ export default function Schedules() {
         params: { fromName: from, toName: to, date: date }
       });
 
+   
       if (response.status === 200 && Array.isArray(response.data)) {
         setSchedules(response.data);
       } else {

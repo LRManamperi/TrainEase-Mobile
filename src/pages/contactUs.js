@@ -8,7 +8,6 @@ import ManagePaymentMethods from './ManagePaymentMethods';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-
 export default function ContactUs() {
   const { isDarkMode } = useTheme();
   const navigation = useNavigation();

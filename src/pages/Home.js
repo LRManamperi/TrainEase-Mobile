@@ -18,10 +18,12 @@ export default function HomeScreen({ navigation }) {
   const [selectedDate, setSelectedDate] = useState(null);  // Initialize as null
   const [show, setShow] = useState(false);
   const [stations, setStations] = useState([]);
+  
 
   useEffect(() => {
     async function fetchStations() {
       try {
+
         console.log('BASE_URL:', BASE_URL);
         const response = await axios.get(`${BASE_URL}/api/search/stations`);
         setStations(response.data.map(station => ({ label: station.name })));
@@ -30,7 +32,6 @@ export default function HomeScreen({ navigation }) {
         Alert.alert("Error", "Failed to fetch stations");
       }
     }
-
 
     async function getCurrentLocation() {
       try {
@@ -144,7 +145,7 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.searchButtonText}>Search</Text>
         </TouchableOpacity>
       </View>
-      <Bot /> 
+      {/* <Bot />  */}
     </ImageBackground>
   );
 }

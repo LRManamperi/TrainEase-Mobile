@@ -174,6 +174,7 @@ const SeatSelection = () => {
     fetchSeatData();
   }, [date, fromStop, toStop, schedule, selectedClass]);
 
+  
   useEffect(() => {
     // Animate the line width based on the current coach index
     Animated.timing(lineWidth, {
@@ -182,7 +183,7 @@ const SeatSelection = () => {
       useNativeDriver: false,
     }).start();
   }, [currentCoachIndex, screenWidth, coaches.length]);
-
+  
   const handleSeatSelection = (seatId) => {
     if (selectedSeats.includes(seatId)) {
       setSelectedSeats(selectedSeats.filter(seat => seat !== seatId));

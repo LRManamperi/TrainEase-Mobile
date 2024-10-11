@@ -12,6 +12,7 @@ export default function SettingsScreen() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [locationEnabled, setLocationEnabled] = useState(true);
   const navigation = useNavigation();
+  
 
   useEffect(() => {
     // Load saved notification settings from AsyncStorage
@@ -21,7 +22,6 @@ export default function SettingsScreen() {
         setNotificationsEnabled(JSON.parse(savedNotificationStatus));
       }
     };
-
     // Load saved location settings from AsyncStorage
     const loadLocationSettings = async () => {
       const savedLocationStatus = await AsyncStorage.getItem('locationEnabled');

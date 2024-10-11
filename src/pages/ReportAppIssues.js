@@ -12,8 +12,6 @@ export default function ReportIssuesScreen() {
   const [issue, setIssue] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  
-
   const endpoint = 'https://formspree.io/f/xovazqey';
 
   const validateEmail = (email) => {

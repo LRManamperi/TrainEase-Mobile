@@ -22,6 +22,7 @@ export default function Notifications() {
           { id: '4', message: 'Uttara Devi is now departing from Platform 3.', timestamp: Date.now() - 14400000 },
         ];
 
+        
         // Simulate an API delay
         setTimeout(() => {
           setNotifications(sampleNotifications);

@@ -46,7 +46,7 @@ export default function TrainDetails({ route }) {
       </View>
     );
   }
-
+  
   const calculateClassPrice = (priceFactor) => {
     return (toStop.price - fromStop.price) * priceFactor;
   };

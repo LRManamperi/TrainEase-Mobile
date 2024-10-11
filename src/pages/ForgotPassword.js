@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { forgotPasswordSchema } from '../../validationSchemas';
 import CustomInput from '../components/CustomInput';
+import { BASE_URL } from "@env";
 
 export default function ForgotPassword({ navigation }) {
   const [message, setMessage] = useState('');
@@ -31,7 +32,7 @@ export default function ForgotPassword({ navigation }) {
       Alert.alert('Network Error', 'Unable to reach the server. Please check your connection and try again.');
     }
   };
-
+  
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Forgot Password</Text>
@@ -48,7 +49,7 @@ export default function ForgotPassword({ navigation }) {
       <CustomInput
         label="Email Address"
         mode="outlined"
-        onChangeText={text => setValue('email', text)}
+        onChange={text => setValue('email', text)}
         error={!!errors.email}
         style={styles.input}
       />

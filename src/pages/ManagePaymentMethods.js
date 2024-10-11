@@ -23,6 +23,7 @@ export default function ManagePaymentMethods() {
   };
 
   
+  
   return (
     <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
       <Card style={styles.card}>
