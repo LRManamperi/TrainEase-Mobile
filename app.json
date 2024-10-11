@@ -19,7 +19,9 @@
         "foregroundImage": "./assets/icon1.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions":["INTERNET"],
+      "permissions": [
+        "INTERNET"
+      ],
       "package": "com.lakshanirasa.TrainEaseMobileApp"
     },
     "web": {
@@ -30,6 +32,12 @@
         "projectId": "3ff97b5b-5f2e-42a8-8616-b62af1d215f7"
       }
     },
-    "owner": "lakshanirasa"
+    "owner": "lakshanirasa",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/3ff97b5b-5f2e-42a8-8616-b62af1d215f7"
+    }
   }
 }
