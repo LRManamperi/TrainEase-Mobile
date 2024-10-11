@@ -140,7 +140,8 @@ export default function Schedules() {
             {from} <Icon name="arrow-forward" style={styles.arrowIcon} /> {to}
           </Text>
           {schedules.length === 0 ? (
-            <Text>No schedules available for the selected route.</Text>
+            <Text style = {styles.noSchedulesText}>No trains? Don't worry! It might be a quiet day on the tracks. Feel free to search again through diffrent stations or try a different day. 🚄
+          </Text>
           ) : (
             <FlatList
               data={schedules}
@@ -221,5 +222,13 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 13,
     fontWeight: 'bold',
+  },
+  noSchedulesText: {
+    textAlign: 'justify',
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#666',
+    marginTop: 80,
+    paddingHorizontal: 20,
   },
 });
