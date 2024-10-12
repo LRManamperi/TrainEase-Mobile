@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, ScrollView } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, ScrollView, ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import axios from "axios";
 import { BASE_URL } from "@env";
-import CustomInput from "../components/CustomInput"; 
 import { useTheme } from "../ThemeContext/ThemeProvider";
 
 const AccountSettings = ({ navigation }) => {
@@ -13,18 +12,25 @@ const AccountSettings = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
-    // Fetch the existing user profile data
+    // Fetch the existing user profile data with a delay
     async function fetchProfile() {
       try {
-        const response = await axios.get(`${BASE_URL}/api/user/getProfile`);
-        const { username, email, phone } = response.data;
-        setUsername(username);
-        setEmail(email);
-        setPhoneNumber(phone);
+        setLoading(true);
+        // Simulating slow loading with a timeout
+        setTimeout(async () => {
+          const response = await axios.get(`${BASE_URL}/api/user/getProfile`);
+          const { username, email, phone } = response.data;
+          setUsername(username);
+          setEmail(email);
+          setPhoneNumber(phone);
+          setLoading(false); // Stop loading after data is fetched
+        }, 1000); // 2-second delay
       } catch (error) {
         console.error("Failed to fetch profile:", error);
+        setLoading(false);
       }
     }
     fetchProfile();
@@ -55,8 +61,15 @@ const AccountSettings = ({ navigation }) => {
       Alert.alert("Error", "Failed to update profile. Please try again.");
     }
   };
-  
-  
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={isDarkMode ? "#fff" : "#000"} />
+      </View>
+    );
+  }
+
   return (
     <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
       <View style={styles.headerContainer}>
@@ -118,10 +131,12 @@ const styles = StyleSheet.create({
   darkContainer: {
     backgroundColor: '#121212',
   },
-  darkText: {
-    color: '#fff',
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: '#fff',
   },
-  
   backButton: {
     marginRight: 10,
   },
