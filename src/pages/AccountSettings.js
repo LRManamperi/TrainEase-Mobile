@@ -56,6 +56,7 @@ const AccountSettings = ({ navigation }) => {
     }
   };
   
+  
   return (
     <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
       <View style={styles.headerContainer}>

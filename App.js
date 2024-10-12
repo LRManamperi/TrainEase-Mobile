@@ -11,6 +11,7 @@ import Constants from 'expo-constants';
 import { NotificationProvider } from './src/NotificationContext/NotificationContext';
 import NetInfo from '@react-native-community/netinfo';  // NetInfo to detect connection
 import { trackUserInsights, Insight } from 'expo-insights';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 
 export default function App() {
@@ -133,6 +134,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
+      <StripeProvider publishableKey="pk_test_51Q8toPAc3xtK5yPN3ACfmd8it850Cbv4UVn4d9i2MbziUZAwMOyeUd4YXK3uNM1Ni7FsVAag0qF48iYFRllK9Dsv00sV9OO6fn">
       <ThemeProvider>
         <NotificationProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
@@ -146,6 +148,7 @@ export default function App() {
           </GestureHandlerRootView>
         </NotificationProvider>
       </ThemeProvider>
+      </StripeProvider>  
     </Provider>
   );
 }
