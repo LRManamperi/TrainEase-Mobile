@@ -7,6 +7,7 @@ import { BASE_URL } from "@env";
 import NoTransactionsImage from "../assets/NoTransactions.png";
 import { useTheme } from "../ThemeContext/ThemeProvider";
 
+
 export default function TransactionsScreen() {
   const { isDarkMode } = useTheme();
   const [transactions, setTransactions] = useState([]);

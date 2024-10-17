@@ -89,7 +89,6 @@ export default function Schedules() {
       setLoading(false);  // End loading when search completes
     }
   };
-
   
   const handleOpen = (fullSchedule) => {
     if (!currentUser) {  // Check if the user is logged in

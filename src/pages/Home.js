@@ -84,7 +84,7 @@ export default function HomeScreen({ navigation }) {
         Alert.alert("Error", "Failed to fetch stations");
       }
     }
-  
+
     async function getCurrentLocation(fetchedStations) {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
