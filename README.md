@@ -25,7 +25,7 @@ TrainEase is a modern mobile app that allows users to search for trains, book ti
 - **Seat Booking**: Select and book seats in different coach classes.
 - **Booking History**: View past and upcoming bookings, with options to cancel and sort by time.
 - **Notifications**: Receive push notifications for booking confirmations, cancellations, and updates.
-- **Chatbot**: A mental health chatbot integrated to assist users with empathetic support.
+- **Chatbot**: A chatbot integrated to assist users with understanding support.
 - **Dark Mode**: Support for light and dark themes, dynamically changing based on user preferences.
 - **Profile Management**: Update user profile, view booking history, and manage notifications.
 - **Issue Reporting**: Users can report issues directly through the app.
