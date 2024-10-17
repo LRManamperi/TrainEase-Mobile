@@ -3,8 +3,8 @@ import { View, Text, StyleSheet } from "react-native";
 
 export default function SearchButton() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Search</Text>
+    <View style={styles.container}testID="button-container">
+      <Text style={styles.text}testID="button-text">Search</Text>
     </View>
   );
 }

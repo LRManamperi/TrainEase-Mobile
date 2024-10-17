@@ -9,6 +9,7 @@ export default function CustomInput({
   secureTextEntry,
   label,
   isRequired,
+  testID,
 }) {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
@@ -34,6 +35,7 @@ export default function CustomInput({
         onChangeText={handleChange}
         mode="outlined"
         secureTextEntry={isSecure}
+        testID={testID}
         right={
           secureTextEntry ? (
             <TextInput.Icon
