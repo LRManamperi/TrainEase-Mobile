@@ -127,6 +127,9 @@ export default function TrainDetails({ route }) {
 
       {/* Class Options Slider */}
       <View>
+      <Text style={[styles.swipePrompt, isDarkMode && styles.darkText]}>
+      👆 Swipe left to discover more classes!
+      </Text>
         <FlatList
           data={trainDetails.coachTypes}
           horizontal
@@ -200,7 +203,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   card: {
-    marginTop: 10,
+    marginTop: 20,
     padding: 20,
     marginBottom: 20,
     borderRadius: 10,
@@ -273,13 +276,14 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   classOption: {
-    marginTop: 30,
-    padding: 20,
+    marginTop: 20,
+    padding: 25,
     marginRight: 10,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#207497",
-    width: 325
+    width: 325,
+    backgroundColor: "#fff",
   },
   classOptionDark: {
     backgroundColor: "#F1F8FB",
@@ -290,10 +294,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#DEF0F8",
   },
   classHeader: {
+    marginTop:20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   className: {
     fontSize: 20,
@@ -334,4 +339,11 @@ const styles = StyleSheet.create({
   activeIndicator: {
     backgroundColor: "#1976D2",
   },
+  swipePrompt: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#1976D2', // Change color based on theme
+  },
+  
 });
