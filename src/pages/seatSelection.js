@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useRef} from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Alert, Dimensions, Animated } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import axios from 'axios';
@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import { useTheme } from '../ThemeContext/ThemeProvider';
 import LoadingSpinner from '../components/LoadingScreen';
 
-
 const SeatSelection = () => {
   const { isDarkMode } = useTheme();
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -17,6 +16,8 @@ const SeatSelection = () => {
   const [bookedSeats, setBookedSeats] = useState([]);
   const [currentCoachIndex, setCurrentCoachIndex] = useState(0);
   const {currentUser} = useSelector(state => state.user);
+  const summaryRef = useRef(null);
+  const mainScrollViewRef = useRef(null); // Add a ref for the main ScrollView
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -47,12 +48,9 @@ const SeatSelection = () => {
         Alert.alert("Error", "Failed to fetch seat details.");
       }
     };
-    
-    
 
     fetchSeatData();
   }, [date, fromStop, toStop, schedule, selectedClass]);
-
 
   useEffect(() => {
     // Animate the line width based on the current coach index
@@ -62,13 +60,20 @@ const SeatSelection = () => {
       useNativeDriver: false,
     }).start();
   }, [currentCoachIndex, screenWidth, coaches.length]);
-  
+
   const handleSeatSelection = (seatId) => {
     if (selectedSeats.includes(seatId)) {
       setSelectedSeats(selectedSeats.filter(seat => seat !== seatId));
     } else {
       setSelectedSeats([...selectedSeats, seatId]);
     }
+
+    // Scroll to the end after selecting a seat
+    setTimeout(() => {
+      if (mainScrollViewRef.current) {
+        mainScrollViewRef.current.scrollToEnd({ animated: true });
+      }
+    }, 1000); // Delay to wait for state update and rendering
   };
 
   const goToCheckout = async () => {
@@ -115,13 +120,15 @@ const SeatSelection = () => {
   };
 
   if (!coaches.length) {
-    return <LoadingSpinner/>;
-    // <Text style={styles.loadingText}>Loading...</Text>;
+    return <LoadingSpinner />;
   }
 
   return (
-    <ScrollView contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}>
-      <Text style={[styles.title, isDarkMode && styles.darkText]}>{selectedClass.name} </Text>
+    <ScrollView
+      ref={mainScrollViewRef} // Attach the ref to the ScrollView
+      contentContainerStyle={[styles.container, isDarkMode && styles.darkContainer]}
+    >
+      <Text style={[styles.title, isDarkMode && styles.darkText]}>{selectedClass.name}</Text>
 
       {/* Scrollable coach layout */}
       <ScrollView 
@@ -214,7 +221,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     borderRadius: 8,
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 2,
   },
   checkoutButtonText: {
     color: '#fff',
