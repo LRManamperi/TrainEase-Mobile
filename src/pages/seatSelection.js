@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { useTheme } from '../ThemeContext/ThemeProvider';
 import LoadingSpinner from '../components/LoadingScreen';
 
+
 const SeatSelection = () => {
   const { isDarkMode } = useTheme();
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -28,6 +29,7 @@ const SeatSelection = () => {
   useEffect(() => {
     const fetchSeatData = async () => {
       try {
+        console.log('BASE_URL:', BASE_URL);
         const response = await axios.get(`${BASE_URL}/api/search/coach-details`, {
           params: {
             date,
@@ -45,6 +47,8 @@ const SeatSelection = () => {
         Alert.alert("Error", "Failed to fetch seat details.");
       }
     };
+    
+    
 
     fetchSeatData();
   }, [date, fromStop, toStop, schedule, selectedClass]);

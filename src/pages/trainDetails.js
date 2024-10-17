@@ -22,6 +22,8 @@ export default function TrainDetails({ route }) {
         const scheduleId = schedule?._id;
         const fromStopId = fromStop?._id;
         const toStopId = toStop?._id;
+        
+        
 
         if (!scheduleId || !fromStopId || !toStopId) {
           console.error("Missing _id in one of the objects:", { scheduleId, fromStopId, toStopId });
@@ -46,6 +48,8 @@ export default function TrainDetails({ route }) {
       </View>
     );
   }
+  
+
   
   const calculateClassPrice = (priceFactor) => {
     return (toStop.price - fromStop.price) * priceFactor;

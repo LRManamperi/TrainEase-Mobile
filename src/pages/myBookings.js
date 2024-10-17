@@ -67,8 +67,8 @@ export default function BookingHistory({ navigation }) {
       Alert.alert("Error", "Failed to cancel booking. Please try again.");
     }
   };
-  const currentDate = moment(); // Initialize current date
 
+  const currentDate = moment(); // Initialize current date
 
   if (loading) return <LoadingSpinner />;
   if (error) return <Text>Error loading booking history.</Text>;

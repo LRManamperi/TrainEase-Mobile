@@ -67,6 +67,8 @@ export default function HomeScreen({ navigation }) {
   //   });
   // }, [BASE_URL]);  // Adjusted dependency array
 
+  
+
   useEffect(() => {
     async function fetchStations() {
       try {

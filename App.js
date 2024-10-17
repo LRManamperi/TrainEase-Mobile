@@ -134,7 +134,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <StripeProvider publishableKey="pk_test_51Q8toPAc3xtK5yPN3ACfmd8it850Cbv4UVn4d9i2MbziUZAwMOyeUd4YXK3uNM1Ni7FsVAag0qF48iYFRllK9Dsv00sV9OO6fn">
+      <StripeProvider publishableKey={process.env.STRIPE_PUBLISHABLE_KEY}>
       <ThemeProvider>
         <NotificationProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>

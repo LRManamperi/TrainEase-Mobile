@@ -31,6 +31,7 @@ export default function RegisterScreen({ navigation }) {
   const registerUser = () => {
     if (!handleValidation()) return;
   
+    
     const body = {
       username,
       email,
@@ -38,6 +39,7 @@ export default function RegisterScreen({ navigation }) {
       password,
     };
 
+    
     dispatch(registerStart());
     
     axios

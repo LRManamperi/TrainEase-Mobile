@@ -10,13 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginStart, loginSuccess, loginFailure, clearError } from "../redux/userSlice";
 import { useRoute } from "@react-navigation/native";
 
-
 export default function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { error, loading, currentUser } = useSelector((state) => state.user);
   const route = useRoute();
+
+
 
   // Clear error message when component is mounted
   useEffect(() => {
@@ -38,6 +39,7 @@ export default function Login({ navigation }) {
 
     // Dispatch loginStart to set loading state
     dispatch(loginStart());
+    
     console.log(BASE_URL);
 
     axios
@@ -65,6 +67,7 @@ export default function Login({ navigation }) {
         Alert.alert("Login Failed", "Please check your credentials and try again.");
       });
   };
+  
 
   return (
     <View style={styles.container}>

@@ -90,6 +90,7 @@ export default function Schedules() {
     }
   };
 
+  
   const handleOpen = (fullSchedule) => {
     if (!currentUser) {  // Check if the user is logged in
       Alert.alert(
