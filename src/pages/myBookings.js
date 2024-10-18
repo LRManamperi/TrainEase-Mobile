@@ -77,7 +77,7 @@ export default function BookingHistory({ navigation }) {
     return (
       <View style={[styles.noBookingsContainer, isDarkMode && styles.darkContainer]}>
         <Image source={YourTripsWillAppearHere} style={styles.noBookingsImage} />
-        <Text style={styles.noBookingsText}>Please log in to see your booking history.</Text>
+        <Text testID="login-message" style={styles.noBookingsText}>Please log in to see your booking history.</Text>
       </View>
     );
   }
