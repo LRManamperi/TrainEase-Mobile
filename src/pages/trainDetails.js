@@ -43,7 +43,7 @@ export default function TrainDetails({ route }) {
   if (!trainDetails) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#207497" />
+        <ActivityIndicator testID="loading-indicator" size="large" color="#207497" />
       </View>
     );
   }

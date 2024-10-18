@@ -13,6 +13,7 @@ const AccountCreated = ({ navigation }) => {
         Your account has been created successfully.
       </Text>
       <TouchableOpacity
+        testID="navigate-home-button"
         style={styles.bottomIconContainer}
         onPress={() => {
           navigation.navigate("Home");

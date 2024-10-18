@@ -78,6 +78,7 @@ export default function Login({ navigation }) {
         onChange={setUsername}
         isRequired={true}
         label="Username"
+        testID="username-input"
       />
       
       <CustomInput
@@ -86,6 +87,8 @@ export default function Login({ navigation }) {
         onChange={setPassword}
         isRequired={true}
         secureTextEntry={true}
+        testID="password-input"
+
       />
       <ElevatedButton text="Login" handlerFunc={loginUser} loading={loading} />
       <View style={styles.footer}>
