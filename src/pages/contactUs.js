@@ -14,13 +14,13 @@ export default function ContactUs() {
   const {currentUser} = useSelector((state) => state.user);
 
   return (
-    <ScrollView style={[styles.container, isDarkMode && styles.darkContainer]}>
+    <ScrollView style={[styles.container, isDarkMode && styles.darkContainer]} testID='scrollView'>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Need help with recent booking?</Text>
         {currentUser? (
           <Text style={styles.welcomeText}>Hi, {currentUser.username}</Text>
         ) : (
-          <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}>
+          <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Login')}testID="loginButton">
             <Text style={styles.loginButtonText}>Log in Now</Text>
           </TouchableOpacity>
         )}

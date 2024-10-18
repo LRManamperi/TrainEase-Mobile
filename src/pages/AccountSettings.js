@@ -57,7 +57,7 @@ const AccountSettings = ({ navigation }) => {
         { cancelable: false }
       );
     } catch (error) {
-      console.error("Error updating profile:", error);
+      //console.error("Error updating profile:", error);
       Alert.alert("Error", "Failed to update profile. Please try again.");
     }
   };
