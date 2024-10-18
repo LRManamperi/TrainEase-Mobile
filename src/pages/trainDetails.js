@@ -33,7 +33,7 @@ export default function TrainDetails({ route }) {
         });
         setTrainDetails(response.data);
       } catch (error) {
-        console.error("Failed to fetch train details:", error);
+        //console.error("Failed to fetch train details:", error);
       }
     };
     fetchTrainDetails();

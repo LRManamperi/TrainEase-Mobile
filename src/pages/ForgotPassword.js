@@ -35,14 +35,14 @@ export default function ForgotPassword({ navigation }) {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Forgot Password</Text>
+      <Text style={styles.header}testID="forgot-password-header">Forgot Password</Text>
       {message && (
-        <Snackbar visible={snackbarVisible} onDismiss={() => setSnackbarVisible(false)} duration={4000}>
+        <Snackbar visible={snackbarVisible} onDismiss={() => setSnackbarVisible(false)} duration={4000} testID="success-message-snackbar">
           {message}
         </Snackbar>
       )}
       {error && (
-        <Snackbar visible={snackbarVisible} onDismiss={() => setSnackbarVisible(false)} duration={4000} style={styles.error}>
+        <Snackbar visible={snackbarVisible} onDismiss={() => setSnackbarVisible(false)} duration={4000} style={styles.error}testID="error-message-snackbar">
           {error}
         </Snackbar>
       )}
@@ -52,6 +52,7 @@ export default function ForgotPassword({ navigation }) {
         onChange={text => setValue('email', text)}
         error={!!errors.email}
         style={styles.input}
+        testID="email-input"
       />
       <HelperText type="error" visible={!!errors.email}>
         {errors.email?.message}
@@ -60,7 +61,7 @@ export default function ForgotPassword({ navigation }) {
         mode="contained"
         onPress={handleSubmit(handleForgotPassword)}
         style={styles.button}
-        
+        testID="send-reset-link-button"
       >
         Send Reset Link
       </Button>
@@ -68,6 +69,7 @@ export default function ForgotPassword({ navigation }) {
         mode="text"
         textColor="black"
         onPress={() => navigation.navigate('Login')}
+        testID="back-to-login-button"
       >
         Back to Login
       </Button>

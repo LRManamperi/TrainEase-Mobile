@@ -151,6 +151,7 @@ export default function HomeScreen({ navigation }) {
             style={isDarkMode ? styles.pickerDark : styles.picker}
             onValueChange={(itemValue) => setSelectedValue1(itemValue)}
             dropdownIconColor={isDarkMode ? 'white' : 'black'} 
+             testID="picker-from"
           >
             <Picker.Item label="From" value="" />
             {stations.map((station, index) => (
@@ -163,6 +164,7 @@ export default function HomeScreen({ navigation }) {
             selectedValue={selectedValue2}
             style={isDarkMode ? styles.pickerDark : styles.picker}
             onValueChange={(itemValue) => setSelectedValue2(itemValue)}
+             testID="picker-to"
           >
             <Picker.Item label="To" value="" />
             {stations.map((station, index) => (
