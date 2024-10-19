@@ -12,7 +12,7 @@ jest.mock('@expo/vector-icons', () => ({
       return <div data-testid="font-awesome" name={name} size={size} color={color} />;
     },
   }));
-// Home.test.js
+
 jest.mock('expo-location', () => ({
   requestForegroundPermissionsAsync: jest.fn().mockResolvedValue({ granted: true }),
   getCurrentPositionAsync: jest.fn().mockResolvedValue({
@@ -22,10 +22,10 @@ jest.mock('expo-location', () => ({
     },
   }),
 }));
-// Home.test.js or a dedicated mock file
+
 jest.mock('../../ThemeContext/ThemeProvider', () => ({
   useTheme: () => ({
-    isDarkMode: false, // or true, depending on what you want to test
+    isDarkMode: false, 
   }),
 }));
 
@@ -51,19 +51,6 @@ describe("Home", () => {
     expect(getByText("mm/dd/yyyy")).toBeTruthy();
   });
 
-  // it("displays an alert if fields are empty when clicking the search button", () => {
-  //   const alertMock = jest.spyOn(global, 'alert'); // Mock alert function
-  //   const { getByText } = render(<Home navigation={mockedNavigation} />);
-
-  //   const searchButton = getByText("Search");
-  //   fireEvent.press(searchButton);
-
-  //   // Check if the alert was called
-  //   expect(alertMock).toHaveBeenCalledWith(
-  //     "Hold on a moment!",
-  //     "It looks like some fields are still empty. Please take a moment to fill them in so we can help you better."
-  //   );
-  // });
 
   it("calls the search function and navigates to the Schedules screen with selected values", async () => {
     const { getByText, getByTestId } = render(<Home navigation={mockedNavigation} />);

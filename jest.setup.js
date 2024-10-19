@@ -1,7 +1,7 @@
 // jest.setup.js
 import { LogBox } from 'react-native';
 
-// Ignore specific warnings
+
 LogBox.ignoreAllLogs(true);
 require('react-native-gesture-handler/jestSetup');
 
@@ -11,7 +11,7 @@ jest.mock('react-native-gesture-handler', () => {
     TouchableOpacity: jest.fn().mockReturnValue(null),
   };
 });
-// Suppress all console error logs
+
 const originalError = console.error;
 
 console.error = (...args) => {

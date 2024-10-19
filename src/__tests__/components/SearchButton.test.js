@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { toHaveStyle } from '@testing-library/jest-native';
-import SearchButton from '../../components/SearchButton'; // Adjust the path as per your project structure
+import SearchButton from '../../components/SearchButton'; 
 
 expect.extend({ toHaveStyle });
 

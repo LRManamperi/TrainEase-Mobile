@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import ForgotPassword from '../../pages/ForgotPassword'; // Adjust the path if needed
+import ForgotPassword from '../../pages/ForgotPassword'; 
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 import { BASE_URL } from '@env';

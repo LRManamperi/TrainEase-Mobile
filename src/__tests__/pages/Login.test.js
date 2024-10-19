@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, waitFor, act } from "@testing-library/react-native";
-import Login from "../../pages/Login"; // Adjust path as necessary
+import Login from "../../pages/Login"; 
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Alert } from "react-native";

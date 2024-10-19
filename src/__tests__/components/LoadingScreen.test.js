@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import LoadingSpinner from '../../components/LoadingScreen'; // Adjust the path to your component
+import LoadingSpinner from '../../components/LoadingScreen'; 
 import { ActivityIndicator } from 'react-native';
 
 describe('LoadingSpinner Component', () => {
