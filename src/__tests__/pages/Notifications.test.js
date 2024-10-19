@@ -26,17 +26,6 @@ describe('Notifications Component', () => {
     expect(getByText('MockedLoadingSpinner')).toBeTruthy();
   });
 
-//   it('displays "No notifications available." if no notifications are found', async () => {
-//     const { getByText } = render(
-//       <ThemeProvider>
-//         <Notifications />
-//       </ThemeProvider>
-//     );
-    
-//     await waitFor(() => {
-//       expect(getByText('No notifications available.')).toBeTruthy();
-//     });
-//   });
 
   it('renders the correct number of notifications', async () => {
     const { getByText, queryByText  } = render(

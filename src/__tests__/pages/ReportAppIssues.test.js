@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import ReportAppIssues from '../../pages/ReportAppIssues';
-import { useTheme } from '../../ThemeContext/ThemeProvider';  // Adjust according to your structure
+import { useTheme } from '../../ThemeContext/ThemeProvider';  
 import { Alert } from 'react-native'; 
 
 // Mocking useTheme

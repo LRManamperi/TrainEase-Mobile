@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import ElevatedButton from '../../components/ElevatedButton'; // Adjust the path to your component
+import ElevatedButton from '../../components/ElevatedButton'; 
 
 describe('ElevatedButton Component', () => {
   it('renders correctly', () => {

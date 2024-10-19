@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import Footer from '../../components/footer'; // Adjust the path as per your project structure
-
+import Footer from '../../components/footer'; 
 describe('Footer Component', () => {
   it('renders footer container correctly', () => {
     const { getByTestId } = render(<Footer />);

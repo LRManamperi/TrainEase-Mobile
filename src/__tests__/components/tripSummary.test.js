@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react-native';
-import TripSummary from '../../components/tripSummary'; // Adjust the import path as needed
+import TripSummary from '../../components/tripSummary';
 import axios from 'axios';
 
 // Mock axios
@@ -68,5 +68,4 @@ describe('TripSummary Component', () => {
     expect(screen.getByText('Your booking has expired.')).toBeTruthy();
   });
   
-  // Add more tests to check for specific functionalities and state changes
 });

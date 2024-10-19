@@ -29,8 +29,7 @@ TrainEase is a modern mobile app that allows users to search for trains, book ti
 - **Dark Mode**: Support for light and dark themes, dynamically changing based on user preferences.
 - **Profile Management**: Update user profile, view booking history, and manage notifications.
 - **Issue Reporting**: Users can report issues directly through the app.
-- **Payment Gateway**: The app's payment gateway is implemented using Stripe, ensuring secure and seamless transactions for bookings.
-
+- **Payment Processing**: Secure and easy payments for bookings using Stripe API.
 
 ## Tech Stack
 
