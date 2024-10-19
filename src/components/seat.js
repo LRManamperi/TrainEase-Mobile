@@ -15,9 +15,10 @@ const Seat = ({ seat, isBooked, isSelected, onSeatSelection }) => {
       ]}
       disabled={isBooked}
       onPress={() => onSeatSelection(seat._id)}
+       testID="seat-button"
     >
       <View style={styles.iconContainer}>
-        <Icon name="chair" size={32} color="black" />
+        <Icon testID="seat-icon" name="chair" size={32} color="black" />
         <Text style={styles.seatName}>{seat.name}</Text>
       </View>
     </TouchableOpacity>
