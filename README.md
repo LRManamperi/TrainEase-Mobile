@@ -52,8 +52,8 @@ TrainEase is a modern mobile app that allows users to search for trains, book ti
 1. Clone the repository:
 
     ```bash
-   git clone https://github.com/yourusername/trainease.git
-   cd trainease
+   git clone https://github.com/LRManamperi/TrainEase-Mobile.git
+    
 2. Install the dependencies:
 
     ```bash
@@ -63,7 +63,7 @@ TrainEase is a modern mobile app that allows users to search for trains, book ti
 3. Create an .env file to store environment variables:
 
     ```bash
-   BASE_URL=https://your-ipv4-address:port
+   BASE_URL=http://your-ipv4-address:port
 4. Start the Expo development server:
 
     ```
