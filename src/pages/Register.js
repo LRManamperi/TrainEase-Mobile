@@ -38,7 +38,7 @@ export default function RegisterScreen({ navigation }) {
       phone,
       password,
     };
-
+    
     
     dispatch(registerStart());
     

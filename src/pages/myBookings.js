@@ -10,6 +10,7 @@ import { useTheme } from "../ThemeContext/ThemeProvider";
 import * as Notifications from 'expo-notifications';
 import LoadingSpinner from "../components/LoadingScreen";
 
+
 export default function BookingHistory({ navigation }) {
   const { isDarkMode } = useTheme();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
@@ -18,7 +19,6 @@ export default function BookingHistory({ navigation }) {
   const [error, setError] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
 
-  
 
   useFocusEffect(
     useCallback(() => {

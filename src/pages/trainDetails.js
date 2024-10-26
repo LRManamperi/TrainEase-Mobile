@@ -144,6 +144,7 @@ export default function TrainDetails({ route }) {
                   : null,
                 isDarkMode && styles.classOptionDark,
               ]}
+              
               onPress={() => handleClassClick(classOption)}
               // disabled={!classOption.available}
             >
@@ -203,9 +204,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   card: {
-    marginTop: 20,
+    marginTop: 10,
     padding: 20,
-    marginBottom: 20,
+    marginBottom: 10,
     borderRadius: 10,
     backgroundColor: "#F1F8FB",
     shadowColor: "#000",

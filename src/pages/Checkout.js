@@ -368,6 +368,7 @@ export default function Checkout() {
           trigger: null,
         });
       // }
+      
 
     } catch (error) {
       console.error("Failed to confirm booking:", error);
@@ -425,6 +426,7 @@ export default function Checkout() {
         />
       </View>
 
+
       <Button
         mode="contained"
         onPress={handleConfirmBooking}
@@ -435,6 +437,14 @@ export default function Checkout() {
           {loading ? 'Processing...' : 'Confirm Reservation'}
         </Text>
       </Button>
+
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Powered by</Text>
+        <Image 
+          source={require('../assets/icons8-stripe-30.png')} 
+          style={styles.stripeLogo}
+        />
+      </View>
     </ScrollView>
   );
 }
@@ -516,6 +526,21 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 44,
+  },
+  footerText: {
+    fontSize: 16,
+    color: 'gray',
+  },
+  stripeLogo: {
+    width: 30,
+    height: 30,
+    marginLeft: 8,
   },
 });
 

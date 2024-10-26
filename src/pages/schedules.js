@@ -89,7 +89,8 @@ export default function Schedules() {
       setLoading(false);  // End loading when search completes
     }
   };
-  
+
+
   const handleOpen = (fullSchedule) => {
     if (!currentUser) {  // Check if the user is logged in
       Alert.alert(
@@ -101,6 +102,7 @@ export default function Schedules() {
         ]
       );
       return;
+
     }
 
     // If logged in, proceed to TrainDetails
@@ -111,6 +113,7 @@ export default function Schedules() {
       date 
     });
   };
+
 
   const renderItem = ({ item }) => (
       <TouchableOpacity style={styles.card} onPress={() => handleOpen(item)}>

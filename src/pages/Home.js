@@ -85,6 +85,7 @@ export default function HomeScreen({ navigation }) {
       }
     }
 
+
     async function getCurrentLocation(fetchedStations) {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
@@ -92,6 +93,8 @@ export default function HomeScreen({ navigation }) {
           Alert.alert('Permission to access location was denied');
           return;
         }
+
+        
         const location = await Location.getCurrentPositionAsync({});
         const [place] = await Location.reverseGeocodeAsync({
           latitude: location.coords.latitude,

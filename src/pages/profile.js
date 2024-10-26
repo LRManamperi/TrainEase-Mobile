@@ -10,18 +10,19 @@ import { useTheme } from '../ThemeContext/ThemeProvider';
 import SLRailwayAd from "../assets/sri_lanka_railway_ad.jpg";
 import SLRailwayAd2 from "../assets/colombo.png";
 
+
 export default function Profile({ navigation }) {
   const { isDarkMode } = useTheme();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   console.log(currentUser);
   const userData = currentUser;
-  
 
   const handleLogout = async () => {
     dispatch(logOutStart());
     try {
       console.log('BASE_URL:', BASE_URL);
+
       await axios.get(`${BASE_URL}/api/user/logout`, null, {
         withCredentials: true,
       });
@@ -35,6 +36,7 @@ export default function Profile({ navigation }) {
       Alert.alert("Logout Failed", "An error occurred. Please try again.");
     }
   };
+
 
   return (
     <ScrollView style={[styles.container, isDarkMode && styles.darkContainer]}>
